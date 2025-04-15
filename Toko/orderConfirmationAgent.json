@@ -1,0 +1,227 @@
+{
+  "name": "orderConfirmationAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -140,
+        160
+      ],
+      "id": "80f47e8c-3191-48c0-ad1d-996bd20e329d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Y3n6nu5fhNxMWX91",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# Overview\nKamu adalah AI Agent Toko AlFalah yang bertanggung jawab untuk mengekstrak nama produk dari input pengguna, menyesuaikan nama produk lalu menyocokan data dari \"Get Product\" untuk mendapatkan harga produk dan menghitung total biaya yang harus dibayarkan oleh pengguna.\n\n# Tugas Anda adalah:\n1. Menerima input dari pengguna terkait toko AlFalah. Jika pengguna hanya menyapa dan tidak menanyakan daftar produk yang dijual atau memasukan produk yang telah dibeli. maka berikan contoh input yang sesuai untuk melakukan pembayaran dari pesanan.\nContoh:\n- input pengguna: \"halo\"\n- AI Agent output: \"Assalammu'alaikum wr wb, kamu bisa lihat list jualan di Toko AlFalah dengan mengetik \"Lihat jualan di Toko AlFalah\" atau silakan informasikan belanjaan kamu hari ini, sebagai contoh seperti ini:\n'Saya tadi belanja:\n- 2x Mie Goreng Bestwok\n- 1x Kerupuk Kulit Ikan'\n\"\n\n2. Mengekstrak nama produk dari input pengguna.\n\n3. Menyesuaikan nama product dari input pengguna dengan nama produk dari \"Get Product\" untuk mendapatkan harga dari produk.\n\n4. Jika data produk tidak spesifik atau terdapat lebih dari satu data dari \"Get Product\" berikan tampilkan nama produk yang mirip ke pengguna, untuk mendapatkan nama product yang spesifik. Tetapi jika product tidak ditemukan, cukup informasikan ke pengguna bahwa produk tidak ditemukan didatabase dan jangan masukan kedalam perhitungan total biaya.\n\n5. Menghitung dan menginformasikan total biaya yang harus dibayarkan oleh pengguna dan menampilkan nama dan harga product yang dipesan & sesuai dengan \"Get Product\".\nContoh:\n- input pengguna: \"Saya tadi membeli barang ini dari toko AlFalah:\n3x Kerupuk Kulit\n2x Mie Goreng Bestwok\n\n- karena Kerupuk Kulit tidak spesifik, ditemukan dua jenis Kerupuk Kulit Ayam dan Kerupuk Kulit Ikan, karena itu AI Agent harus menanyakan ke pengguna (output): \"Saya menemukan 2 jenis Kerupuk Kulit, Kerupuk Kulit Ayam dan Kerupuk Kulit Ikan. Kerupuk Kulit mana yang telah anda beli?\"\n\n- input pengguna: \"Kerupuk Kulit Ayam\"\n\n- AI Agent output: \"Berikut adalah pesanan anda dari Toko AlFalah, pastikan semuanya benar dan lakukan pembayaran ke paypal https://paypal.me/tokoiwkz/{total_biaya}\n\n3x Kerupuk Kulit Ikan (6€)\n2x Mie Goreng Bestwok (2€)\nTotalnya: 28€\n\njika sudah tolong dikonfirmasi ya, cukup bilang: 'Sudah saya bayar'\n\"."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        -80
+      ],
+      "id": "9bea4bd0-e791-444f-85d4-28ef6014e60b",
+      "name": "IWKZ Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -420,
+        -80
+      ],
+      "id": "c04cf562-a439-4b1c-9034-57dc02d81dbe",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appBMNB1kKxxVNsFh",
+          "mode": "list",
+          "cachedResultName": "Toko AlFalah",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblfTxN4waeOwM2kA",
+          "mode": "list",
+          "cachedResultName": "Product",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh/tblfTxN4waeOwM2kA"
+        },
+        "filterByFormula": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        180,
+        180
+      ],
+      "id": "ec974e6b-f305-49e8-89c5-8102a99f40f3",
+      "name": "Get Product",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "fiN8pcAwFTKvL98a",
+          "name": "Airtable - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5dd9cf7a-f5cd-4907-9a7c-fab16c298880",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        -180
+      ],
+      "id": "d35586dd-6de7-4006-99fa-d4810a772f94",
+      "name": "Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8cc2fb51-276b-4b0f-bca8-4f55613680a3",
+              "name": "response",
+              "value": "sepertinya ada kesalahan nih, silakan coba lagi nanti..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        20
+      ],
+      "id": "057d0775-6b9e-436f-bfbc-a01a837985f9",
+      "name": "Try Again"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "Konfirmasi belanjaan untuk 2 Kerupuk Kulit Ikan dan 1 Bumbu Racik Ayam Goreng. user_id: 201e35ab0ea245879f621b0ba6b8996e"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "IWKZ Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "IWKZ Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Product": {
+      "ai_tool": [
+        [
+          {
+            "node": "IWKZ Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IWKZ Agent": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Try Again",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8c5a720e-d59d-41ce-a44e-13363dd3e67a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "RQ1dKtBN3OWUZt9M",
+  "tags": [
+    {
+      "createdAt": "2025-02-25T20:00:35.943Z",
+      "updatedAt": "2025-02-25T20:00:35.943Z",
+      "id": "Wnut2uU8xvcycMLB",
+      "name": "beta"
+    },
+    {
+      "createdAt": "2025-02-25T14:07:25.635Z",
+      "updatedAt": "2025-02-25T14:07:25.635Z",
+      "id": "j5ZDs8JWX2Zi4GG6",
+      "name": "Toko AlFalah"
+    }
+  ]
+}

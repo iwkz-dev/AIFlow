@@ -1,0 +1,212 @@
+{
+  "name": "productAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        100
+      ],
+      "id": "7b35be97-52e5-43a6-82b3-621e3e95cb18",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# Overview\nKamu adalah AI Agent Toko AlFalah yang bertanggung jawab untuk menampilkan daftar produk yang dijual di toko AlFalah.\n\n- gunakan \"Get Product\" untuk mendapatkan daftar produk yang dijual di Toko AlFalah.\n- tampilkan produk berdasarkan nama dan harga dalam euro."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -360,
+        100
+      ],
+      "id": "139cdbf2-4df0-4165-9687-fb4db130b429",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        300
+      ],
+      "id": "6f17f70f-dc82-416e-8c62-d5687cab5508",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Y3n6nu5fhNxMWX91",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2b96df53-a3a5-4346-b1bd-a95c213e84aa",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c331339c-964d-445c-b4c2-40a28232cbec",
+      "name": "Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b0f49ba9-91a5-4db4-80b5-08b2469ca306",
+              "name": "response",
+              "value": "sepertinya terjadi masalah nih, sialakan coba lagi nanti...",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        200
+      ],
+      "id": "77c1f61e-b0d4-45a3-b256-8a38bb13538e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appBMNB1kKxxVNsFh",
+          "mode": "list",
+          "cachedResultName": "Toko AlFalah",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblfTxN4waeOwM2kA",
+          "mode": "list",
+          "cachedResultName": "Product",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh/tblfTxN4waeOwM2kA"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -200,
+        320
+      ],
+      "id": "b35f51f7-9958-4da7-b4c2-3499139ec09f",
+      "name": "Get Product",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "fiN8pcAwFTKvL98a",
+          "name": "Airtable - juan@iwkz.de"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Product": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7c321119-7c89-4c4a-8291-866854fc2182",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "Guf3GTw3WcJBF4X7",
+  "tags": [
+    {
+      "createdAt": "2025-02-25T14:07:25.635Z",
+      "updatedAt": "2025-02-25T14:07:25.635Z",
+      "id": "j5ZDs8JWX2Zi4GG6",
+      "name": "Toko AlFalah"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "name": "LaporanKeuanganAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=\"Anda adalah asisten finansial dari IWKZ yang cerdas dan ramah. Tugas Anda adalah membantu pengguna memahami data pendapatan (income) dan pengeluaran (outcome) dari IWKZ (operasional) / Proyek Rumah Surga (PRS) berdasarkan bulan atau tahun. Data tersimpan di Supabase, dan Anda dapat menggunakan Tools untuk mengambil informasi yang relevan berdasarkan bulan / tahun atau kombinasi keduanya sesuai permintaan pengguna. perhatikan juga permintaan pengguna apakah data diminta dari prs (proyek rumah surga) atau operasional (IWKZ) data ini dapat difilter dari coloumn (data_type)\n\nBerikut adalah hal-hal yang dapat Anda lakukan:\n1. Menggunakan Tools untuk query data dari Supabase Database berdasarkan permintaan user, seperti:\n\t- Menampilkan pendapatan dan pengeluaran untuk bulan atau tahun tertentu.\n\t- Membandingkan data antara bulan atau tahun.\n\t- Menghitung selisih antara pendapatan dan pengeluaran (laba/rugi).\n\n2. Memberikan insight menarik berdasarkan data yang diambil, seperti:\n\t- Tren pendapatan/pengeluaran.\n\t- Bulan dengan pendapatan tertinggi/terendah.\n\t- Tahun dengan performa keuangan terbaik/terburuk.\n\n3. Menjawab pertanyaan spesifik user tentang data, seperti:\n\t- 'Berapa pendapatan pada bulan Maret 2020?'\n\t- 'Bagaimana performa keuangan IWKZ pada tahun 2021?'\n\t- 'Bandingkan pendapatan bulan Juli 2020 dan Juli 2021.'\n\nLangkah-langkah yang harus Anda ikuti:\n\t- Identifikasi kebutuhan user: Pahami pertanyaan atau permintaan user dengan baik.\n\t- Tentukan query yang diperlukan: Buat query yang sesuai untuk mengambil data dari Supabase Database.\n\t- Gunakan Tools untuk mengambil data: Jalankan query menggunakan Tools yang terhubung ke Supabase.\n\t- Analisis dan berikan respons: Berikan respons yang informatif, menarik, dan mudah dipahami berdasarkan data yang diambil.\n\nPastikan untuk:\n    - Pastikan output menggunakan mata uang euro (€).\n\t- Menggunakan bahasa yang santai dan ramah & memberikan respons yang rapi dan jelas\n\t- Menyertakan analisis atau insight sederhana untuk membuat informasi lebih menarik.\n\t- hiraukan topik diluar IWKZ / PRS."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -460,
+        100
+      ],
+      "id": "a69611bf-cb0a-49a9-88eb-e754e51fe6bd",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        360
+      ],
+      "id": "1e1d4337-31b9-497d-9d82-92de6e6551fe",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "Y3n6nu5fhNxMWX91",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "pembukuan_public",
+        "returnAll": true,
+        "filterType": "string"
+      },
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        460
+      ],
+      "id": "e5199805-d453-44c4-bef1-c40a220d759d",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "4BUSzjSNQN4JBjBQ",
+          "name": "Supabase - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2c3d0149-4ad2-4bd9-b0a9-e163b6c4a5d0",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8682d24a-fd59-454f-b20e-9db43df12683",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7fed337a-3e1a-427e-8e4a-9e15398f52f6",
+              "name": "response",
+              "value": "sepertinya ada kesalahan nih, silakan coba lagi nanti..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        220
+      ],
+      "id": "7ee32417-3f6b-404b-a5e1-64ec5a73ae33",
+      "name": "Try Again"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -700,
+        100
+      ],
+      "id": "a0f62ef0-b07b-4351-b662-0e07d054ddb4",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appfQuwiifBi6oFP6",
+          "mode": "list",
+          "cachedResultName": "pembukuan_public",
+          "cachedResultUrl": "https://airtable.com/appfQuwiifBi6oFP6"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblc7c5xJqR3SlSgf",
+          "mode": "list",
+          "cachedResultName": "Imported table",
+          "cachedResultUrl": "https://airtable.com/appfQuwiifBi6oFP6/tblc7c5xJqR3SlSgf"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.1,
+      "position": [
+        -260,
+        360
+      ],
+      "id": "58f644bc-e1cd-40de-b382-4c4a815726ed",
+      "name": "Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "fiN8pcAwFTKvL98a",
+          "name": "Airtable - juan@iwkz.de"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "pendapatan IWKZ Q2 2024"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Try Again",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "15da63e7-aa02-4ca7-8267-637f660cc7cf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "Q6cGXf5gQGiVy37g",
+  "tags": []
+}

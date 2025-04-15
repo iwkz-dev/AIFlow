@@ -1,0 +1,292 @@
+{
+  "name": "TokoAlFalahAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -780,
+        100
+      ],
+      "id": "adbaa2d1-9263-4edd-b09f-9288cba2bc05",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# Overview:\nKamu adalah AI Agent Toko AlFalah yang bertanggung jawab untuk mengindetifikasi permintaan dari pengguna yang berkaitan dengan Toko AlFalah: menampilkan daftar jualan produk Toko AlFalah dan juga mengkonfirmasi pembelian produk dari Toko AlFalah. Gunakan tool yang tepat sesuai dengan permintaan dari user.\n\n---------------------------------------------------------------------------\n## Tools:\n- productAgent: gunakan tool ini jika pengguna ingin mengetahui produk yang dijual di Toko AlFalah.\n- orderConfirmationAgent: gunakan tool ini jika pengguna ingin mengkonfirmasi barang yang telah dibeli.\n- paymentConfirmationAgent: gunakan tool ini jika pengguna telah mengkonfirmasi pembayaran. dan berikan input dalam bentuk json seperti ini:\n{\n  \"total_ordered_price\": 13.5, \n  \"ordered_product\": [{\"product_name\": \"Ayran Manggo\", \"quantity\": 3, \"total_price\": 13.5}]\n}\n\n---------------------------------------------------------------------------\n## Peraturan:\n- paymentConfirmationAgent tidak dapat dijalankan sebelum orderConfirmationAgent dijalankan dan pengguna telah memberikan konfirmasi pembayaran dengan pesan \"sudah saya bayar\" atau serupa.\n\n---------------------------------------------------------------------------\n## Contoh:\n1.) input: \"produk apa saja yang di jual di Toko AlFalah?\"\n- Action: gunakan productAgent untuk mendapatkan daftar produk dari database / AirTable dan tampilkan ke produk dan harga ke pengguna.\n2.) \n- input: \"tadi saya telah belanja di Toko AlFalah: 2 Mie Goreng Bestwok dan 1 Kerupuk Kulit Ayam\".\n- Action: gunakan orderConfirmationAgent untuk mendapatkan harga produk dari database berdasarkan nama produk yang telah disebutkan pengguna dan juga melakukan perhitungan dari total pembeli dan akhirnya membuat link paypal untuk dikirimkan ke pengguna.\n- input: \"saya sudah bayar\"\n- Action: gunakan paymentConfirmationAgent untuk mengupdate status pembelian barang.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -480,
+        100
+      ],
+      "id": "6829e953-e195-4d8f-bb6b-1f8f3e4b4bcf",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -740,
+        360
+      ],
+      "id": "8a962563-9859-4537-b9b9-40dda732eb0a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Y3n6nu5fhNxMWX91",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "93e7e08c-d37c-43ec-a905-9b1e929eab71",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e29751f2-d68f-4916-b5ac-a1ea194166ca",
+      "name": "Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "07138951-d98c-469c-b6bf-e6f88bb818c6",
+              "name": "response",
+              "value": "mohon maaf sepertinya terjadi kesalahan, silakan coba lagi..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        220
+      ],
+      "id": "8ab3daea-1764-40b6-a2c4-4367a3ded16e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "name": "orderConfirmationAgent",
+        "description": "gunakan tool ini jika pengguna ingin mengkonfirmasi barang yang telah dibeli.",
+        "workflowId": {
+          "__rl": true,
+          "value": "RQ1dKtBN3OWUZt9M",
+          "mode": "list",
+          "cachedResultName": "orderConfirmationAgent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -300,
+        340
+      ],
+      "id": "a02d99c2-51f9-46ac-90f0-c5a09ffeea9f",
+      "name": "orderConfirmationAgent"
+    },
+    {
+      "parameters": {
+        "name": "productAgent",
+        "description": "gunakan tool ini untuk menampilkan produk dari toko alfalah",
+        "workflowId": {
+          "__rl": true,
+          "value": "Guf3GTw3WcJBF4X7",
+          "mode": "list",
+          "cachedResultName": "productAgent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        340
+      ],
+      "id": "4e75c3c0-b655-4dcf-bde3-652b571a440f",
+      "name": "productAgent"
+    },
+    {
+      "parameters": {
+        "name": "paymentConfirmationAgent",
+        "description": "gunakan tool ini ketika pengguna telah mengkonfirmasi pembayaran.",
+        "workflowId": {
+          "__rl": true,
+          "value": "3KPqDFcf6d9jKlV4",
+          "mode": "list",
+          "cachedResultName": "paymentConfirmationAgent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        340
+      ],
+      "id": "0b71e516-d743-4b4c-bff2-9406b2fd3803",
+      "name": "paymentConfirmationAgent"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "Konfirmasi belanjaan untuk 2 Kerupuk Kulit Ikan dan 1 Bumbu Racik Ayam Goreng. user_id: 0d6ac00eab0f4bacb7423fb4b0b4a9fa"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "orderConfirmationAgent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "productAgent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "paymentConfirmationAgent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fc216e9c-1591-4856-a20f-86dc51ce2bb4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "ZpFgaUY0BBgT8IyP",
+  "tags": [
+    {
+      "createdAt": "2025-02-25T14:07:25.635Z",
+      "updatedAt": "2025-02-25T14:07:25.635Z",
+      "id": "j5ZDs8JWX2Zi4GG6",
+      "name": "Toko AlFalah"
+    }
+  ]
+}

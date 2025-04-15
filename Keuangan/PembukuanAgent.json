@@ -1,0 +1,1422 @@
+{
+  "name": "PembukuanAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        240
+      ],
+      "id": "67067974-f8cd-49ab-8de4-6a855459565a",
+      "name": "Wait2",
+      "webhookId": "ec959288-755b-4f8c-ab96-d86a6b400b34"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transactions",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2360,
+        120
+      ],
+      "id": "4a454b92-c517-4f9b-9bfe-7118490d370e",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "transactions",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2360,
+        360
+      ],
+      "id": "f4071859-1560-49a0-b515-efc7a766a7cc",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "workspaceId": "wyhnczr0",
+        "projectId": "psr833d6749qxxz",
+        "table": "mwt4d067am25rtl",
+        "dataToSend": "autoMapInputData"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2580,
+        120
+      ],
+      "id": "8b3ecacf-1424-4765-b911-87e4542541e4",
+      "name": "Pembukuan Operasional",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "fxzAD4prGK1RT9xl",
+          "name": "NocoDB - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "workspaceId": "wyhnczr0",
+        "projectId": "psr833d6749qxxz",
+        "table": "md01mruf8jyvb63",
+        "dataToSend": "autoMapInputData"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2580,
+        360
+      ],
+      "id": "4d55e227-a5d0-45c4-958e-027ad2ff26fa",
+      "name": "Pembukuan PRS",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "fxzAD4prGK1RT9xl",
+          "name": "NocoDB - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Parse Uploaded Data With PDF.co\n- free 1 bulan\n- credit 17,5€ cukup untuk 2 tahun subscription\n",
+        "height": 640,
+        "width": 3360,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "941fd505-24c3-48c2-96f2-742877877103",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "deleteFile",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Map File Id & Type').item.json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        3240,
+        220
+      ],
+      "id": "09ff38c3-5570-4e96-a378-d7f27922c62d",
+      "name": "Remove File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "EgwlQ8plLHmHDVk4",
+          "name": "GDrive - info@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pdf.co/v1/ai-invoice-parser",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "beispiele90@gmail.com_j8SALKrMesszej5AsH0HYlV7I7gMxiEGcNpiuvZvFzHRsxtJFcsIOlbPTPiimKpJ"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "=https://drive.google.com/uc?id={{ $json.id }}&export=download"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        240
+      ],
+      "id": "79c2e953-88dd-4277-b2d6-ea134bd15bb6",
+      "name": "PDF.co Parser"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pdf.co/v1/job/check",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "beispiele999@gmail.com_fZBPUCdFedBDnHUQn3IRNs0eOYY3H1K1Fulx2dH2TivgELJUTljern48nl6zw5j9"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "jobId",
+              "value": "={{ $json.jobId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        940,
+        240
+      ],
+      "id": "4ab38e6c-66bd-4bc6-9220-a8900b649d43",
+      "name": "PDF.co Get Result"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0080d046-92fb-4372-86a3-645db85caa94",
+              "name": "document_date",
+              "value": "={{ $('Is Process Done?').item.json.body.date }}",
+              "type": "string"
+            },
+            {
+              "id": "511d6147-1bd9-4bc0-8a15-797cbbfc38f0",
+              "name": "document_type",
+              "value": "={{ $('Map File Id & Type').item.json.document_type }}",
+              "type": "string"
+            },
+            {
+              "id": "378e8c8f-7a5b-4850-8c7b-cab17c635542",
+              "name": "spreadsheet_id",
+              "value": "={{ $json.spreadsheetId }}",
+              "type": "string"
+            },
+            {
+              "id": "7524192a-3517-49d7-ac1b-a60987216f71",
+              "name": "data",
+              "value": "={{ $('Is Process Done?').item.json.body.account_statement.transactions }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1600,
+        240
+      ],
+      "id": "65fa1e5c-c8d9-4a23-a2fc-31b5467e24c6",
+      "name": "Cleanup Result"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1380,
+        420
+      ],
+      "id": "f9d4377b-c9c7-4be7-bad1-3d7ab0a7ad95",
+      "name": "Wait3",
+      "webhookId": "ff348188-15f6-4aab-8064-904646ff815c"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "f92fa88a-4e4e-4956-a728-5456b172f4b5",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        60,
+        240
+      ],
+      "id": "8c086128-6e6b-43f4-bb44-c80b8166bbd1",
+      "name": "Webhook File Upload",
+      "webhookId": "f92fa88a-4e4e-4956-a728-5456b172f4b5"
+    },
+    {
+      "parameters": {
+        "resource": "spreadsheet",
+        "title": "={{ $('Map File Id & Type').item.json.document_type }}",
+        "sheetsUi": {
+          "sheetValues": [
+            {
+              "title": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1380,
+        240
+      ],
+      "id": "1e07194a-685a-4613-b016-82fba9fd3f59",
+      "name": "Create GSheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mEZ9Y5iltEpAe8XO",
+          "name": "Pembukuan - info@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Switch Based on Type').item.json.spreadsheet_id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "data",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "steuer",
+              "displayName": "steuer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "desc",
+              "displayName": "desc",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "kategorien",
+              "displayName": "kategorien",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sachkonten",
+              "displayName": "sachkonten",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "bemerkung",
+              "displayName": "bemerkung",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "datum",
+              "displayName": "datum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "lz",
+              "displayName": "lz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "haben",
+              "displayName": "haben",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "einnahme",
+              "displayName": "einnahme",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ausgabe",
+              "displayName": "ausgabe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "soll",
+              "displayName": "soll",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2900,
+        220
+      ],
+      "id": "7cdff4f0-ebf8-406e-af46-da75ddfdd744",
+      "name": "Record To GSheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "mEZ9Y5iltEpAe8XO",
+          "name": "Pembukuan - info@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Switch Based on Type').item.json.spreadsheet_id }}",
+          "mode": "id"
+        },
+        "driveId": {
+          "__rl": true,
+          "value": "0AOuxrKiAM8-OUk9PVA",
+          "mode": "list",
+          "cachedResultName": "Vorstand",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/0AOuxrKiAM8-OUk9PVA"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1do8CaXl3dQKXoOWns_ijacyt27rbrxJI",
+          "mode": "list",
+          "cachedResultName": "results",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1do8CaXl3dQKXoOWns_ijacyt27rbrxJI"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        3080,
+        220
+      ],
+      "id": "676b52d7-b370-4715-921d-183094b36609",
+      "name": "Move Results",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "EgwlQ8plLHmHDVk4",
+          "name": "GDrive - info@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "353d4fff-8bfb-47b8-bc81-2f3e83421d84",
+              "leftValue": "={{ $json.document_type }}",
+              "rightValue": "prs",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3520,
+        820
+      ],
+      "id": "2e66e1c2-a271-4d3b-a202-733c8917573f",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "wyhnczr0",
+        "projectId": "psr833d6749qxxz",
+        "table": "md01mruf8jyvb63",
+        "returnAll": true,
+        "options": {
+          "where": "={{ $json.query }}"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        3820,
+        720
+      ],
+      "id": "3459bb3c-3b42-48ae-b4df-ece0c1dac601",
+      "name": "Get Data PRS",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "fxzAD4prGK1RT9xl",
+          "name": "NocoDB - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "result",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        4100,
+        820
+      ],
+      "id": "7bdc44d0-cd95-4a3c-aad3-03c3b39407b0",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "const tst_year = $('Prepare NocoDB Query').first().json.year;\nconst transactionList = $input.first().json.result;\nconst document_type = $('Prepare NocoDB Query').first().json.document_type;\nconst results = [];\n\nconst result = transactionList.reduce((acc, item) => {\n  const [day, month, year] = item.datum.split(\"-\");\n  const intMonth = parseInt(month);\n\n  if (!acc[intMonth]) {\n    acc[intMonth] = { \n      data_type: document_type,\n      month: intMonth, \n      year: parseInt(tst_year),\n      income: 0.0, \n      outcome: 0.0 \n    };\n  }\n\n  const soll = (item.soll || 0.0+\"\").replace(',', '.').replace('-','');\n  const haben = (item.haben || 0.0+\"\").replace(',', '.');\n  \n  acc[intMonth].income += parseFloat(haben || 0);\n  acc[intMonth].outcome += parseFloat(soll || 0);\n\n  return acc;\n}, {});\n\nreturn {data: Object.values(result)};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4300,
+        820
+      ],
+      "id": "1575698b-5697-440a-8784-39d491936224",
+      "name": "Map Data Correctly"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "wyhnczr0",
+        "projectId": "psr833d6749qxxz",
+        "table": "mwt4d067am25rtl",
+        "returnAll": true,
+        "options": {
+          "where": "={{ $json.query }}"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        3820,
+        960
+      ],
+      "id": "9dc52528-9348-432a-9445-b041b19a662c",
+      "name": "Get Data Operasonal",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "fxzAD4prGK1RT9xl",
+          "name": "NocoDB - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        4520,
+        820
+      ],
+      "id": "8437e68b-3f39-49ba-85e2-7e69dfa4591a",
+      "name": "Record Each Data"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "pembukuan_public",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "year",
+              "keyValue": "={{ $json.year }}"
+            },
+            {
+              "keyName": "month",
+              "keyValue": "={{ $json.month }}"
+            },
+            {
+              "keyName": "data_type",
+              "keyValue": "={{ $json.data_type }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4840,
+        460
+      ],
+      "id": "b635564d-b70e-4c0b-9e0b-4603db6715ea",
+      "name": "Get Existing Data",
+      "alwaysOutputData": true,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "pembukuan_public",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $json.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "income",
+              "fieldValue": "={{ $('Record Each Data').item.json.income }}"
+            },
+            {
+              "fieldId": "outcome",
+              "fieldValue": "={{ $('Record Each Data').item.json.outcome }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        5340,
+        360
+      ],
+      "id": "55911ab9-2e38-4c06-ac49-62b785dfc099",
+      "name": "Update Data",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6eca2d6c-55bc-40b6-b834-cb6a2d3f6297",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        5080,
+        460
+      ],
+      "id": "57178cff-d453-4271-9065-242736e8270e",
+      "name": "Is Data (year + month) Exist?",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "tableId": "pembukuan_public",
+        "dataToSend": "autoMapInputData"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        4960,
+        820
+      ],
+      "id": "66869f0a-47ca-4ff2-a851-e05175436aa6",
+      "name": "Create Data",
+      "credentials": {
+        "supabaseApi": {
+          "id": "4BUSzjSNQN4JBjBQ",
+          "name": "Supabase - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const recordedMonths = $('Switch Based on Type').first().json.recorded_months;\nconst year = $('Switch Based on Type').first().json.document_year;\nconst document_type = $('Switch Based on Type').first().json.document_type;\nlet nocoDbQuery = \"\";\nlet index = 0;\nfor (const month of recordedMonths) {\n\n  if (index > 0) {\n    nocoDbQuery += \"~or\"\n  }\n  \n  nocoDbQuery += `(lz,like,${month})`;\n  index++;\n}\n\nreturn {\n  year,\n  recorded_months: recordedMonths,\n  document_type,\n  query: nocoDbQuery\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3360,
+        820
+      ],
+      "id": "0a78d601-adc6-4d52-a7d5-3e73268acb33",
+      "name": "Prepare NocoDB Query"
+    },
+    {
+      "parameters": {
+        "content": "## Record Data To Public\n- store data of income & outcome from each year & month to Supabase",
+        "height": 520,
+        "width": 2100
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3320,
+        640
+      ],
+      "typeVersion": 1,
+      "id": "867b61a1-8a56-411a-8ab2-16d7a9e2cc24",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8170378f-9c00-46ad-8588-40772ff87d18",
+              "name": "id",
+              "value": "={{ $json.body.id }}",
+              "type": "string"
+            },
+            {
+              "id": "4e82b65b-4df4-419f-8801-5670fcc0ee99",
+              "name": "document_type",
+              "value": "={{ $json.body.document_type }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        240
+      ],
+      "id": "63dad735-ab23-4a94-9930-ea60c4fa237f",
+      "name": "Map File Id & Type"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ea3fad09-21d8-4358-8e7e-4d5cf92be8bd",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1160,
+        240
+      ],
+      "id": "4aa1f012-9aa6-44d8-869a-65d03805f214",
+      "name": "Is Process Done?"
+    },
+    {
+      "parameters": {
+        "jsCode": "function main() {\n  const data = $input.first().json.data;\n  const document_date = $input.first().json.document_date || data[0].date;\n  const [day, month, year] = document_date.split(\".\");\n  const result = evaluateDataWithConfig(data);\n  return {\n    document_date,\n    document_year: year,\n    document_type: $input.first().json.document_type,\n    spreadsheet_id: $input.first().json.spreadsheet_id,\n    recorded_months: getRecordedMonths(result),\n    transactions: result\n  };\n}\n\n// Definisi variabel global\nconst IS_PRS = $input.first().json.document_type == \"prs\";\nconst yearStr = [\"Jan\", \"Feb\", \"März\", \"Apr\", \"May\", \"Juni\", \"Juli\", \"Aug\", \"Sep\", \"Okt\", \"Nov\", \"Dez\"];\nconst skrDic = {\n    2250: {\n        category: \"Dauerauftrag Spenden\",\n        keys: [],\n        description: {\n            \"Operasional Masjid\": [\"operasional\", \"000000009802\"],\n            \"Infaq\": [\"infaq\", \"infak\"]\n        }\n    },\n    2251: {\n        category: \"Spenden\",\n        keys: [],\n        description: {\n            \"Operasional Masjid\": [\"ope- rasional\", \"opera- sional\"],\n            \"Infaq\": [\"sedekah\", \"se- dekah\"]\n        }\n    },\n    2253: {\n        category: \"Spendeaktionen Religiöse\",\n        keys: [],\n        description: {\n            \"Zakat Fitrah\": [\"fitrah\"],\n            \"Zakat Maal\": [\"zakat\", \"penghasilan\"],\n            \"PRS\": [\"prs\", \"proyekrumahsurga@iwkz.de\"],\n            \"Qurban\": [\"qurban\"]\n        }\n    },\n    2254: {\n        category: \"Spendeaktionen Humanitäre\",\n        keys: [],\n        description: {\n            \"ACT\": [\"act\"],\n            \"HI\": [\"fight corona\", \"corona\", \"gerakan\", \"gera- kan\"]\n        }\n    },\n    6805: {\n        category: \"Telefon\",\n        keys: [\"telefonica\"],\n        description: \"Telefonica\"\n    },\n    6810: {\n        category: \"Internet\",\n        keys: [\"ionos\"],\n        description: \"1 und 1\"\n    },\n    6325: {\n        category: \"Gas, Strom, Wasser\",\n        keys: [\"vattenfall\"],\n        description: \"Vattenfall\"\n    },\n    6310: {\n        category: \"Miete\",\n        keys: [\"schmidt hausverwaltu\"],\n        description: \"\"\n    },\n    6420: {\n        category: \"Rundfunk ARD,ZDF,Dradio\",\n        keys: [\"rundfunk ard\"],\n        description: \"Rundfunk \"\n    },\n    10000: {\n        category: \"Kantin Jumat\",\n        keys: [\"kantin\", \"kan- tin\"],\n        description: \"\"\n    },\n    10001: {\n        category: \"Saso\",\n        keys: [\"saso\", \"sa- so\", \"sate somay\"],\n        description: \"\"\n    }\n};\n\n// Fungsi untuk mendapatkan keys\nfunction getKeys(data) {\n    let keys = data.keys;\n    const dataDescription = data.description;\n\n    if (!keys.length) {\n        if (typeof dataDescription === 'object' && !Array.isArray(dataDescription)) {\n            for (const desc of Object.values(dataDescription)) {\n                keys = keys.concat(desc);\n            }\n        }\n    }\n\n    return keys;\n}\n\n// Fungsi untuk mendapatkan deskripsi\nfunction getDescription(description, dataDescription) {\n    let tmpDesc = \"-\";\n\n    if (typeof dataDescription === 'object' && !Array.isArray(dataDescription)) {\n        for (const [desc, descKeys] of Object.entries(dataDescription)) {\n            for (const keyword of descKeys) {\n                if (description.includes(keyword)) {\n                    tmpDesc = desc;\n                    break;\n                }\n            }\n            if (tmpDesc !== \"-\") break;\n        }\n    } else {\n        tmpDesc = dataDescription;\n    }\n\n    return tmpDesc;\n}\n\n// Fungsi untuk mengatur informasi ledger\nfunction setLedgerInformation(dataDict) {\n    const description = dataDict.desc.toLowerCase();\n\n    for (const [key, data] of Object.entries(skrDic)) {\n        for (const keyword of getKeys(data)) {\n            if (description.includes(keyword)) {\n                dataDict.sachkonten = parseInt(key);\n                dataDict.kategorien = data.category;\n                dataDict.bemerkung = getDescription(description, data.description);\n                break;\n            }\n        }\n    }\n}\n\n// Fungsi menghilangkan nama orang pada deskripsi\nfunction cleanUpDescription(input) {\n    // Regex untuk mencocokkan teks antara \"von\"/\"an\" dan \"Verwendungszweck\"/\"IBAN\"\n    const regex = /(von|an)\\s+[^\\n]+\\n(Verwendungszweck|IBAN)/g;\n\n    // Mengganti teks yang cocok dengan pola yang diinginkan\n    const output = input.replace(regex, (match) => {\n        // Memisahkan kata kunci dan mengganti nama dengan \"---\"\n        const parts = match.split(/\\s+/);\n        return `${parts[0]} ---\\n${parts[parts.length - 1]}`;\n    });\n\n    return output;\n}\n\n// Fungsi untuk mengatur ledger statis dari IBAN\nfunction setStaticLedgerFromIban(ledger, description, dataDict) {\n    const ledgerInfo = skrDic[ledger];\n\n    dataDict.sachkonten = ledger;\n    dataDict.kategorien = ledgerInfo.category;\n    dataDict.bemerkung = description;\n}\n\n// Fungsi untuk mengevaluasi data dengan konfigurasi\nfunction evaluateDataWithConfig(data) {\n    const statements = [];\n\n    for (const transaction of data) {\n        const dataDict = {};\n        dataDict.steuer = 1;\n        dataDict.desc = transaction.transaction_type + \" \" + transaction.details;\n        dataDict.kategorien = \"-\";\n        dataDict.sachkonten = 0;\n        dataDict.bemerkung = \"-\";\n        dataDict.soll = 0;\n        dataDict.haben = 0;\n\n        const [day, month, year] = transaction.date.split(\".\");\n        dataDict.datum = day+\"-\"+month+\"-\"+year;\n        dataDict.lz = yearStr[parseInt(month) - 1];\n\n        if (transaction.debit !== \"\") {\n            dataDict.soll = transaction.debit.replace(\" \", \"\").replace(\".\", \"\");\n            dataDict.einnahme = \"\";\n            dataDict.ausgabe = \"x\";\n        } else {\n            dataDict.haben = transaction.credit.replace(\" \", \"\").replace(\"+\", \"\").replace(\".\", \"\");\n            dataDict.einnahme = \"x\";\n            dataDict.ausgabe = \"\";\n        }\n\n        if (IS_PRS) {\n            setStaticLedgerFromIban(2253, \"PRS\", dataDict);\n        } else {\n            setLedgerInformation(dataDict);\n        }\n      \n        dataDict.desc = cleanUpDescription(dataDict.desc)\n        statements.push(dataDict);\n    }\n\n    return statements;\n}\n\nfunction getRecordedMonths(evaluatedData) {\n  const arrMonth = [];\n\n  for (const data of evaluatedData) {\n    const [day, month, year] = data.datum.split(\"-\");\n    const selectedMonth = yearStr[parseInt(month) - 1];\n\n    if (!arrMonth.includes(selectedMonth)) {\n      arrMonth.push(selectedMonth);\n    }\n  }\n\n  return arrMonth;\n}\n\nreturn main();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1820,
+        240
+      ],
+      "id": "4fe62dcb-c5cd-41d7-958a-e1135e0622c9",
+      "name": "Cleanup Result And Add Other Info"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.document_type }}",
+                    "rightValue": "operasional",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b0eb484d-e57c-46ea-be94-c01907e4a6de",
+                    "leftValue": "={{ $json.document_type }}",
+                    "rightValue": "prs",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2040,
+        240
+      ],
+      "id": "2d5752ee-4e0b-4f2c-99f0-f9f6f85d51c0",
+      "name": "Switch Based on Type"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appfQuwiifBi6oFP6",
+          "mode": "list",
+          "cachedResultName": "pembukuan_public",
+          "cachedResultUrl": "https://airtable.com/appfQuwiifBi6oFP6"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblc7c5xJqR3SlSgf",
+          "mode": "list",
+          "cachedResultName": "Imported table",
+          "cachedResultUrl": "https://airtable.com/appfQuwiifBi6oFP6/tblc7c5xJqR3SlSgf"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "id": 0,
+            "year": 0,
+            "month": 0,
+            "income": 0,
+            "outcome": 0
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "year",
+              "displayName": "year",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "month",
+              "displayName": "month",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "income",
+              "displayName": "income",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "outcome",
+              "displayName": "outcome",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "data_type",
+              "displayName": "data_type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "prs",
+                  "value": "prs"
+                },
+                {
+                  "name": "operasional",
+                  "value": "operasional"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        4740,
+        820
+      ],
+      "id": "783f4854-6c79-4093-937f-6b9b2adca01d",
+      "name": "Create Table",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "fiN8pcAwFTKvL98a",
+          "name": "Airtable - juan@iwkz.de"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook File Upload": [
+      {
+        "json": {
+          "headers": {
+            "connection": "upgrade",
+            "host": "localhost:5678",
+            "content-length": "64",
+            "content-type": "application/json",
+            "user-agent": "Mozilla/5.0 (compatible; Google-Apps-Script; beanserver; +https://script.google.com; id: UAEmdDd9Bjk8s2ssXDNBWV7Tjql3jeX_euFM)",
+            "accept-encoding": "gzip, deflate, br"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": "1c8lve_Kf55bPcAKGJ6o_DXlDqHrf38EV",
+            "document_type": "prs"
+          },
+          "webhookUrl": "https://aiflow.iwkz.de/webhook/f92fa88a-4e4e-4956-a728-5456b172f4b5",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "PDF.co Get Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Pembukuan Operasional",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pembukuan Operasional": {
+      "main": [
+        [
+          {
+            "node": "Record To GSheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Pembukuan PRS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pembukuan PRS": {
+      "main": [
+        [
+          {
+            "node": "Record To GSheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PDF.co Parser": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PDF.co Get Result": {
+      "main": [
+        [
+          {
+            "node": "Is Process Done?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cleanup Result": {
+      "main": [
+        [
+          {
+            "node": "Cleanup Result And Add Other Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "PDF.co Get Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook File Upload": {
+      "main": [
+        [
+          {
+            "node": "Map File Id & Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove File": {
+      "main": [
+        [
+          {
+            "node": "Prepare NocoDB Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create GSheets": {
+      "main": [
+        [
+          {
+            "node": "Cleanup Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record To GSheets": {
+      "main": [
+        [
+          {
+            "node": "Move Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Results": {
+      "main": [
+        [
+          {
+            "node": "Remove File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Get Data PRS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Data Operasonal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Data PRS": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Map Data Correctly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Data Correctly": {
+      "main": [
+        [
+          {
+            "node": "Record Each Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Data Operasonal": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record Each Data": {
+      "main": [
+        [
+          {
+            "node": "Create Table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Existing Data": {
+      "main": [
+        [
+          {
+            "node": "Is Data (year + month) Exist?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Data (year + month) Exist?": {
+      "main": [
+        [
+          {
+            "node": "Update Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare NocoDB Query": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map File Id & Type": {
+      "main": [
+        [
+          {
+            "node": "PDF.co Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Process Done?": {
+      "main": [
+        [
+          {
+            "node": "Create GSheets",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cleanup Result And Add Other Info": {
+      "main": [
+        [
+          {
+            "node": "Switch Based on Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Based on Type": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Table": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7c34e8c1-aee2-4401-8cce-8817b33c156f",
+  "meta": {
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "KCyiUU0UIaBnfwGq",
+  "tags": [
+    {
+      "createdAt": "2025-02-25T15:52:06.226Z",
+      "updatedAt": "2025-02-25T15:52:06.226Z",
+      "id": "vFuizoPxkCrlNkhY",
+      "name": "Pembukuan"
+    }
+  ]
+}

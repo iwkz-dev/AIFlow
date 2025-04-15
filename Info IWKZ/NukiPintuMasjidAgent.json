@@ -1,0 +1,289 @@
+{
+  "name": "NukiPintuMasjidAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -720,
+        280
+      ],
+      "id": "39332d84-37f6-4f1b-8077-bd8091b89ef9",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "40e4828a-bf7c-412b-b918-ff90ddcce735",
+              "leftValue": "={{ $json.query }}",
+              "rightValue": "buka",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -500,
+        280
+      ],
+      "id": "476c8bb5-33a4-4fde-9738-594c839a5661",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.nuki.io/smartlock/475351837/action/unlock",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "authorization",
+              "value": "Bearer e6d3ec6aedb22817f52f09c1434bb60ac707b0c6c4eadbd494e2d2f0ed3c91cdb3e5fb2bc18fd37b"
+            },
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        100
+      ],
+      "id": "309aa76f-b2c4-44fb-b3fd-717d968a869d",
+      "name": "Nuki Unlock",
+      "alwaysOutputData": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.nuki.io/smartlock/475351837/action/lock",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "authorization",
+              "value": "Bearer e6d3ec6aedb22817f52f09c1434bb60ac707b0c6c4eadbd494e2d2f0ed3c91cdb3e5fb2bc18fd37b"
+            },
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        480
+      ],
+      "id": "a80b9c43-4d61-4981-b73b-f3d74f3cf6bf",
+      "name": "Nuki Lock",
+      "alwaysOutputData": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "af17dd0e-502e-4888-a621-f6f75cb59181",
+              "name": "response",
+              "value": "sepertinya terjadi kesalahan dalam membuka pintu masjid..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        200
+      ],
+      "id": "f695f3fe-46d9-4a5e-9eca-53ea575147e1",
+      "name": "Error"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7656ffa4-c360-4728-b973-877714bfc56b",
+              "name": "response",
+              "value": "pintu sudah dibuka, silakan masuk.. jangan lupa baca doa :)",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "04efac7f-fda0-4a58-9366-6b1806635d5f",
+      "name": "Success"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f90dc047-f4ec-4ade-bf3c-44528ce3713e",
+              "name": "response",
+              "value": "sepertinya terjadi kesalahan dalam menutup pintu masjid..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        580
+      ],
+      "id": "7c048ca2-41ee-4483-b180-c0e11462a83d",
+      "name": "Error1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6ce870df-83c1-4e03-9aba-1704f9623796",
+              "name": "response",
+              "value": "terimakasih sudah menutup pintu masjid!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        400
+      ],
+      "id": "dddaa33b-97c8-437e-a3b0-89fe7795557c",
+      "name": "Success1"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "buka pintu"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Nuki Unlock",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Nuki Lock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nuki Unlock": {
+      "main": [
+        [
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nuki Lock": {
+      "main": [
+        [
+          {
+            "node": "Success1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "85cb8345-b398-4815-978f-55189c3ad0ce",
+  "meta": {
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "cnhhn9Rs0UmsMZe0",
+  "tags": []
+}

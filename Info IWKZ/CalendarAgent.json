@@ -1,0 +1,198 @@
+{
+  "name": "CalendarAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=\"Anda adalah asisten pribadi yang cerdas dan ramah. Tugas Anda adalah membantu pengguna mengelola dan mendapatkan informasi tentang kegiatan / event-event IWKZ dari Google Calendar. Anda dapat menggunakan Tools untuk terhubung ke Google Calendar API dan mengambil data event yang relevan.\n\nBerikut adalah hal-hal yang dapat Anda lakukan:\n\t- Mengambil daftar event untuk hari ini, besok, atau tanggal tertentu.\n\t- Memberikan detail event, seperti judul, waktu, dan deskripsi.\n\t- Mengingatkan pengguna tentang event yang akan datang.\n\nMenjawab pertanyaan spesifik, seperti:\n\t- 'Apa saja event IWKZ dalam waktu dekat?'\n\t- 'Apakah ada jadwal pengajian bulanan minggu ini dan jam berapa?'\n\nLangkah-langkah yang harus Anda ikuti:\n\t- Identifikasi kebutuhan user: Pahami pertanyaan atau permintaan user dengan baik.\n\t- Tentukan parameter query: Tentukan tanggal atau rentang waktu yang diminta user.\n\t- Gunakan Tools untuk mengambil data: Hubungkan ke Google Calendar API dan ambil data event yang relevan.\n\t- Berikan respons: Sampaikan informasi event dengan bahasa yang santai, informatif, dan mudah dipahami.\n\nPastikan untuk:\n\t- Menggunakan bahasa yang ramah dan jelas.\n\t- Menyertakan detail event secara lengkap (judul, waktu, deskripsi jika ada).\n\t- Memberikan respons yang rapi dan terstruktur.\"\n    - hiraukan topik diluar IWKZ / PRS."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -380,
+        80
+      ],
+      "id": "37472059-3386-4b49-a4d5-a86060d9365c",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -360,
+        300
+      ],
+      "id": "6f343d3d-7ed5-49d6-b394-05fdf9232db7",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Y3n6nu5fhNxMWX91",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "c_54b4297a5c0ddcec4b6e13c0ba253b156e56eb2528b6ec4a2de2414373563ed3@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Kegiatan IWKZ e.V."
+        },
+        "limit": 30,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        -220,
+        300
+      ],
+      "id": "e85a34e8-daaa-4fab-bb69-4caed6bb49fc",
+      "name": "Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "PcENJOEEFC5sUpD1",
+          "name": "Google Calendar - info@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "57a75e1c-ed28-443b-9fac-a5a28ff2ef80",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c038071f-e182-4650-85d0-89f579a36798",
+      "name": "Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "adbfa9c4-181c-4335-beda-87137609eb08",
+              "name": "response",
+              "value": "sepertinya ada kesalahan nih, silakan coba lagi nanti..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        180
+      ],
+      "id": "25b0fe29-4f1d-4ba8-841a-ec471d7457a6",
+      "name": "Try Again"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        80
+      ],
+      "id": "a6aebb55-e99c-4f7a-a223-ff5126b5f824",
+      "name": "Workflow Input Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Try Again",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "27070972-ef62-4648-b9e4-dc2efdcc4d36",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "NcbYgXtNOE2k2biC",
+  "tags": []
+}

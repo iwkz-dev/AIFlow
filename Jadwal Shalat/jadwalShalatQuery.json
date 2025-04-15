@@ -1,0 +1,260 @@
+{
+  "name": "jadwalShalatQuery",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -740,
+        80
+      ],
+      "id": "7cb99534-f431-4766-9063-e15a43e3ff7f",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a86c441c-e351-4b2e-9f15-0d13af0ce4b2",
+              "name": "date",
+              "value": "={{ $json.date }}",
+              "type": "string"
+            },
+            {
+              "id": "8e3e3b94-b262-47c5-90b9-b09e851f4a73",
+              "name": "subuh",
+              "value": "={{ $json.subuh }}",
+              "type": "string"
+            },
+            {
+              "id": "be26776e-2779-44ea-a338-7990abf55ca7",
+              "name": "terbit",
+              "value": "={{ $json.terbit }}",
+              "type": "string"
+            },
+            {
+              "id": "5fa46871-4c6d-4f15-ad73-1e46460a4702",
+              "name": "dzuhur",
+              "value": "={{ $json.dzuhur }}",
+              "type": "string"
+            },
+            {
+              "id": "2259887e-b65b-425a-a668-09fb0f769898",
+              "name": "ashr",
+              "value": "={{ $json.ashr }}",
+              "type": "string"
+            },
+            {
+              "id": "531a7cce-50e0-447d-a0c6-2a99164f083d",
+              "name": "maghrib",
+              "value": "={{ $json.maghrib }}",
+              "type": "string"
+            },
+            {
+              "id": "829c58b9-2c2b-4795-8097-f4769427e161",
+              "name": "isya",
+              "value": "={{ $json.isya }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        80
+      ],
+      "id": "fafd6811-1940-4490-b483-649edda99e1a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "const dateString = $input.first().json.query;\nconst parts = dateString.split('.');\nconst dayMonth = parts[0] + '.' + parts[1];\nconst year = Number(parts[2]);\nlet isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);\n\nreturn [{\n  dayMonth,\n  year,\n  isLeapYear\n}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -520,
+        80
+      ],
+      "id": "671ef99a-4bf4-449c-9b14-71a5a3d3eecb",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5597a937-f70e-4ba1-899b-b37beba1ebf0",
+              "leftValue": "={{ $json.isLeapYear }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -300,
+        80
+      ],
+      "id": "8d843dbf-dca1-4508-b4e0-51e8687748fc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "wk0vywhh",
+        "projectId": "posqwk1jaj2937v",
+        "table": "mr6z2mr9zd4rp4y",
+        "options": {
+          "where": "=(date,eq,{{ $json.dayMonth }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9ef6aeff-4b40-4804-9c58-4f448cfeb98b",
+      "name": "JadwalShalat",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "fxzAD4prGK1RT9xl",
+          "name": "NocoDB - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "wk0vywhh",
+        "projectId": "posqwk1jaj2937v",
+        "table": "m1k1tlwmoow9pe5",
+        "options": {
+          "where": "=(date,eq,{{ $json.dayMonth }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        0,
+        180
+      ],
+      "id": "58f2dccd-e427-472c-95e5-dfc9d87aea62",
+      "name": "JadwalShalatLeapYear",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "fxzAD4prGK1RT9xl",
+          "name": "NocoDB - juan@iwkz.de"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "12.02.2024"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "JadwalShalat",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "JadwalShalatLeapYear",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JadwalShalat": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JadwalShalatLeapYear": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bb499551-eccb-41d2-b159-33308d4fe27e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "bJ2z9Rx7WQ5eENCZ",
+  "tags": []
+}

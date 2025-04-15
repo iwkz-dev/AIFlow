@@ -1,0 +1,453 @@
+{
+  "name": "paymentConfirmationAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -820,
+        20
+      ],
+      "id": "9f48be48-eff9-47bc-9937-4d491e8accdb",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2a3fb142-6164-4ffa-a742-6e58c292c94a",
+              "leftValue": "={{ $json.total_ordered_price }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "0ed91fe9-6c11-4e5b-863a-bce775899697",
+              "leftValue": "={{ $json.ordered_product }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -300,
+        20
+      ],
+      "id": "46443f87-37d4-46d9-a512-d3ca30ca365c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9d879350-f37b-4d8b-a1f4-ff5693c5964b",
+              "name": "ordered_product",
+              "value": "={{ $('If').item.json.ordered_product }}",
+              "type": "array"
+            },
+            {
+              "id": "22a5e133-9dad-4782-87e9-c9cc77ac206d",
+              "name": "customer_order_id",
+              "value": "={{ $json.fields.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        0
+      ],
+      "id": "431679ae-0ff5-41fe-82fd-422665d01319",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appBMNB1kKxxVNsFh",
+          "mode": "list",
+          "cachedResultName": "Toko AlFalah",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl5GeEzb8qDrVnJw",
+          "mode": "list",
+          "cachedResultName": "OrderDetail",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh/tbl5GeEzb8qDrVnJw"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "product_name": "={{ $json.ordered_product.product_name }}",
+            "amount": "={{ $json.ordered_product.quantity }}",
+            "total_price": "={{ $json.ordered_product.total_price }}",
+            "customer_order_id": "={{ $json.customer_order_id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "customer_order_id",
+              "displayName": "customer_order_id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "product_name",
+              "displayName": "product_name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "total_price",
+              "displayName": "total_price",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        580,
+        0
+      ],
+      "id": "66673c31-b9aa-4541-82cd-9d69e7362e0b",
+      "name": "Airtable3",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "fiN8pcAwFTKvL98a",
+          "name": "Airtable - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "ordered_product",
+        "include": "selectedOtherFields",
+        "fieldsToInclude": "customer_order_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        380,
+        0
+      ],
+      "id": "256411a5-9f4e-431c-b3e7-29c70576002a",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "25c0a8dc-ba11-4b39-9cd0-7f5f75e68ffb",
+              "name": "message",
+              "value": "=Silakan melakukan pembayaran ke paypal https://paypal.me/tokoiwkz/{{ $('If').item.json.total_ordered_price }} jika sudah tolong dikonfirmasi ya, cukup bilang: 'Sudah saya bayar'",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        820,
+        0
+      ],
+      "id": "727aadc8-5b7e-46d7-97e6-7f3271c4e700",
+      "name": "Edit Fields1",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appBMNB1kKxxVNsFh",
+          "mode": "list",
+          "cachedResultName": "Toko AlFalah",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblOqNBKqsimGkxM9",
+          "mode": "list",
+          "cachedResultName": "CustomerOrder",
+          "cachedResultUrl": "https://airtable.com/appBMNB1kKxxVNsFh/tblOqNBKqsimGkxM9"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "phone_number": "123123",
+            "total": "={{ $json.total_ordered_price }}",
+            "Status": "waiting"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "done",
+                  "value": "done"
+                },
+                {
+                  "name": "waiting",
+                  "value": "waiting"
+                },
+                {
+                  "name": "cancel",
+                  "value": "cancel"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3b19b14e-986b-4382-a356-a2a471c0c3db",
+      "name": "CustomerOrder1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "fiN8pcAwFTKvL98a",
+          "name": "Airtable - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return JSON.parse($input.first().json.query)"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        20
+      ],
+      "id": "8822efb0-8f58-4f8d-9610-75332c51f8c0",
+      "name": "Code"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "{\"user_id\": \"201e35ab0ea245879f621b0ba6b8996e\", \"message\": \"ja betul, \\n\" , \"total_ordered_price\": 13.5, \"ordered_product\": [{\"product_name\": \"Ayran Manggo\", \"quantity\": 3, \"total_price\": 13.5}]}"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "CustomerOrder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Airtable3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CustomerOrder1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7bef2f86-7a40-4c45-b3d6-24689d106cd4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "3KPqDFcf6d9jKlV4",
+  "tags": [
+    {
+      "createdAt": "2025-02-25T20:00:35.943Z",
+      "updatedAt": "2025-02-25T20:00:35.943Z",
+      "id": "Wnut2uU8xvcycMLB",
+      "name": "beta"
+    },
+    {
+      "createdAt": "2025-02-25T14:07:25.635Z",
+      "updatedAt": "2025-02-25T14:07:25.635Z",
+      "id": "j5ZDs8JWX2Zi4GG6",
+      "name": "Toko AlFalah"
+    }
+  ]
+}

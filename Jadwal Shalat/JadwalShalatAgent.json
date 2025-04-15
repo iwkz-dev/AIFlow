@@ -1,0 +1,210 @@
+{
+  "name": "JadwalShalatAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=# Overview\nKamu adalah AI Agent yang bertanggung jawab untuk mengambil data jadwal shalat berdasarkan tanggal atau hari (convert menjadi tanggal) yang diberikan oleh pengguna. Jadwal Shalat terdiri dari: Subuh, Terbit, Dzuhur, Ashr, Maghrib dan Isya.\n\n# Tools\n- jadwalShalatQuery: gunakan tool ini untuk mengambil jadwal shalat dari tanggal yang diminta oleh pengguna. pastikan query berupa tanggal dalam format dd.mm.yyyy\n\n# Action/Rules\n1. ambil data dari jadwalShalat berdasarkan dd.mm dan cocokan tanggal dengan date dari data jadwalShalat. ketika mendapatkan data dari jadwalShalat, ubah key Tool ke Data\n2. tampilkan seluruh jadwal shalat mulai dari subuh, terbit, dzuhur, ashr, magrib dan isya jika user tidak meminta jadwal sahalat secara khusus, sertakan juga tanggal hari ini dan tanggal hijriah.\ncontoh:\n- input pengguna: tampilkan jadwal shalat hari ini\n- output: berikut adalah jadwal shalat hari ini 01.03.2025:\n #Subuh: 05:00\n #Terbit: 06:00\n #Dzuhur: 12:00\n #Ashr: 15:00\n #Maghrib: 17:00\n #Isya: 19:00\n3. tampilkan jadwal shalat khusu sesuai permintaan user.\ncontoh: \n- input pengguna: jam berapa shalat subuh hari ini?\n- output: shalat subuh hari ini 01.03.2025 pukul 05:00\n4. jika bertanya jadwal shalat jumat, jika dzuhur masih sekitar jam 12 maka sholat jumat jam 12:30 dan jika dzuhur sekitar jam 13 maka sholat jumat jam 13:30.\n5. pastikan jam jadwal shalat dalam dicetak tebal agar terlihat lebih jelas. dan juga tampilkan tanggal yang diminta dalam format dd.mm.yyyy.\n\n# Final Reminders\nHere is the current date/time: {{ $now }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -360,
+        100
+      ],
+      "id": "ef666979-092c-4b10-b7e3-f094b068f8d9",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -420,
+        320
+      ],
+      "id": "3dc237de-7640-45a7-aa24-5d032b32d610",
+      "name": "QWEN Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Y3n6nu5fhNxMWX91",
+          "name": "OpenAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "jadwalShalatQuery",
+        "description": "use this tool to get data based on selected date. make sure the given date format like this dd.mm.yyyy",
+        "workflowId": {
+          "__rl": true,
+          "value": "bJ2z9Rx7WQ5eENCZ",
+          "mode": "list",
+          "cachedResultName": "jadwalShalatQuery"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -200,
+        320
+      ],
+      "id": "66fc0799-9d61-4c13-80ea-68c3a47d1618",
+      "name": "jadwalShalatQuery",
+      "notesInFlow": false,
+      "notes": "replace Tool key with Data"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7c746449-2ae5-4379-be3c-6f8d7d3e09ea",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "daff6e54-0f81-4368-8ad1-e156862c3a7c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "008069b1-9275-4ba1-b9cd-3c7f2b50f05d",
+              "name": "response",
+              "value": "sepertinya ada kesalahan nih, silakan coba lagi nanti..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        200
+      ],
+      "id": "823111a3-858c-48a4-9f83-511e9d8c6585",
+      "name": "Try Again"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -620,
+        100
+      ],
+      "id": "0291b7cc-39b3-4cd4-89ef-e3b75f1799b1",
+      "name": "Workflow Input Trigger"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "Jadwal sholat maghrib hari ini?"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "QWEN Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "jadwalShalatQuery": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Try Again",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ce1c2166-5aa3-48dd-9f22-6ea4fb702149",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+  },
+  "id": "U0e2Mngc0QG85N7z",
+  "tags": []
+}
