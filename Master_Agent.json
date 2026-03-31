@@ -29,7 +29,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -768,
+        -560,
         320
       ],
       "id": "7ee22275-3a5b-48b3-9919-f86be3e6c966",
@@ -48,19 +48,19 @@
             {
               "id": "22065826-d501-4511-9ddd-4842378c4548",
               "name": "user_id",
-              "value": "={{ $json.user_id }}",
+              "value": "={{ $('Edit Fields2').item.json.user_id }}",
               "type": "string"
             },
             {
               "id": "9a37de7a-05ed-4fe9-ad81-7b68ae950d54",
               "name": "user_name",
-              "value": "={{ $json.user_name }}",
+              "value": "={{ $('Edit Fields2').item.json.user_name }}",
               "type": "string"
             },
             {
               "id": "82233f1c-f232-4424-85a9-41736aa5191d",
               "name": "message",
-              "value": "={{ $json.message }}",
+              "value": "={{ $('Edit Fields2').item.json.message }}",
               "type": "string"
             }
           ]
@@ -70,7 +70,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -816,
+        -608,
         112
       ],
       "id": "b83b7ab6-6123-400b-a60a-f4a7686a0f24",
@@ -87,7 +87,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -624,
+        -416,
         112
       ],
       "id": "5137f91b-063f-464b-a5db-f71fd199ce71",
@@ -117,7 +117,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -464,
+        -256,
         688
       ],
       "id": "c64f2679-8996-40dc-a36d-d6dd2966bea7",
@@ -146,7 +146,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -640,
+        -432,
         688
       ],
       "id": "97537c1c-8eff-4900-9f8e-458f99e17003",
@@ -162,8 +162,8 @@
       "type": "n8n-nodes-base.whatsAppTrigger",
       "typeVersion": 1,
       "position": [
-        -1328,
-        208
+        -1472,
+        224
       ],
       "id": "ed2948f3-64d4-440a-820e-0894a4797bb9",
       "name": "When Message Received",
@@ -204,7 +204,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1088,
+        -912,
         32
       ],
       "id": "01fb0da6-db58-428e-8fab-0b942b1c38c5",
@@ -231,6 +231,12 @@
               "name": "message",
               "value": "={{ $json.messages[0].text.body }}",
               "type": "string"
+            },
+            {
+              "id": "332c3f2e-6c7a-46ca-a6f4-0f63ccb8f790",
+              "name": "message_id",
+              "value": "={{ $json.messages[0].id }}",
+              "type": "string"
             }
           ]
         },
@@ -239,8 +245,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1088,
-        208
+        -1248,
+        224
       ],
       "id": "da211847-0371-408d-b629-87bb8e17e3b0",
       "name": "Edit Fields2"
@@ -272,7 +278,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -256,
+        -48,
         112
       ],
       "id": "89f25c86-63be-4da6-b519-eaf2ef58219a",
@@ -295,7 +301,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
+        208,
         208
       ],
       "id": "b3365f35-fb52-4a89-b8bf-8dc969dcf3d0",
@@ -312,7 +318,7 @@
       "type": "n8n-nodes-base.whatsApp",
       "typeVersion": 1,
       "position": [
-        0,
+        208,
         0
       ],
       "id": "2769c388-9eb9-47f4-961c-94ac2803b235",
@@ -348,7 +354,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -304,
+        -96,
         688
       ],
       "id": "07e848d6-8997-47e9-b56a-9b08f9b9008c",
@@ -377,7 +383,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -144,
+        64,
         688
       ],
       "id": "af02abc2-6d8a-47ce-b5e3-7dd309b64d74",
@@ -406,7 +412,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        32,
+        240,
         688
       ],
       "id": "f565f1b0-0fdf-4bf7-849d-98372eca6737",
@@ -435,7 +441,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        192,
+        400,
         688
       ],
       "id": "364a57f6-d5aa-4453-8c5a-ea2d28d7e1d8",
@@ -443,13 +449,15 @@
     },
     {
       "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.user_id }}",
         "databaseName": "iwkz",
         "contextWindowLength": 7
       },
       "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
       "typeVersion": 1,
       "position": [
-        -608,
+        -400,
         288
       ],
       "id": "fa7a6e7e-920d-4cd8-9420-b049b54e8d38",
@@ -460,6 +468,75 @@
           "name": "MongoDB - info@iwkz.de"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v25.0/636769649516172/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"status\": \"read\",\n  \"message_id\": \"{{ $json.message_id }}\",\n  \"typing_indicator\": {\n    \"type\": \"text\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -800,
+        208
+      ],
+      "id": "6aa8480c-31a1-4f5d-a252-875930eb6e86",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "XlsbjJTDkKmoIEhQ",
+          "name": "Whatsapp Bearer Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f8848842-5245-4109-b6e4-0c8c72cc4a28",
+              "leftValue": "={{ $json.user_id }}",
+              "rightValue": "=null",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "82a4c003-5090-4767-b1d6-713139d25ff5",
+              "leftValue": "={{ $json.user_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1040,
+        224
+      ],
+      "id": "4110ef7c-542e-48ab-a9dd-928af39ba45d",
+      "name": "If1"
     }
   ],
   "pinData": {},
@@ -556,7 +633,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "If1",
             "type": "main",
             "index": 0
           }
@@ -635,6 +712,28 @@
           }
         ]
       ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -642,7 +741,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "976736a7-4e38-4136-af39-b05c4be7d98d",
+  "versionId": "4b1c4783-1baf-46cc-b790-19ae4f50cd64",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
