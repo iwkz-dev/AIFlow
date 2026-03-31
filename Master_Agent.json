@@ -9,10 +9,10 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1320,
-        20
+        -1328,
+        32
       ],
-      "id": "65bc91db-7ae8-4036-a82e-4caadb9def8b",
+      "id": "c1a1077d-d8c3-498c-b1ed-e54307edde61",
       "name": "When chat message received",
       "webhookId": "11494ecc-14dd-40e7-828b-0daddfc3f7a2",
       "notesInFlow": true
@@ -29,15 +29,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -760,
+        -768,
         320
       ],
-      "id": "54fb63de-0e2a-4e5b-b141-a737fbca75f4",
+      "id": "7ee22275-3a5b-48b3-9919-f86be3e6c966",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -70,31 +70,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -820,
-        100
+        -816,
+        112
       ],
-      "id": "ea9b9c34-4e70-4581-909c-d7f652d1290d",
+      "id": "b83b7ab6-6123-400b-a60a-f4a7686a0f24",
       "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "={{ $json.user_id }}"
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryZep",
-      "typeVersion": 1.3,
-      "position": [
-        -600,
-        320
-      ],
-      "id": "15027029-603d-40c5-be42-7b308cea65dc",
-      "name": "Zep",
-      "credentials": {
-        "zepApi": {
-          "id": "w9wKvYiAGzKQlMch",
-          "name": "ZepCloud - juan@iwkz.de"
-        }
-      }
     },
     {
       "parameters": {
@@ -107,10 +87,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -620,
-        100
+        -624,
+        112
       ],
-      "id": "15b5bc7f-4f5f-419a-9ffc-c82942c416b4",
+      "id": "5137f91b-063f-464b-a5db-f71fd199ce71",
       "name": "IWKZ AI Agent",
       "alwaysOutputData": false
     },
@@ -120,8 +100,9 @@
         "description": "gunakan tool ini jika berkaitan dengan toko alfalah.",
         "workflowId": {
           "__rl": true,
-          "value": "ZpFgaUY0BBgT8IyP",
+          "value": "mYFvl69PBKzuuacP",
           "mode": "list",
+          "cachedResultUrl": "/workflow/mYFvl69PBKzuuacP",
           "cachedResultName": "TokoAlFalahAgent"
         },
         "workflowInputs": {
@@ -136,10 +117,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -460,
-        680
+        -464,
+        688
       ],
-      "id": "3f972446-6b45-4b9c-9ed2-772cb4538303",
+      "id": "c64f2679-8996-40dc-a36d-d6dd2966bea7",
       "name": "TokoAlFalahAgent"
     },
     {
@@ -148,8 +129,9 @@
         "description": "gunakan tool ini jika pengguna bertanya tentang jadwal shalat. jadwal shalat terdiri dari, subuh, terbit, dzuhur, ashr, maghrib dan isya atau jam sholat jumat.",
         "workflowId": {
           "__rl": true,
-          "value": "U0e2Mngc0QG85N7z",
+          "value": "6dS6Jt4isyRkn5iZ",
           "mode": "list",
+          "cachedResultUrl": "/workflow/6dS6Jt4isyRkn5iZ",
           "cachedResultName": "JadwalShalatAgent"
         },
         "workflowInputs": {
@@ -165,30 +147,31 @@
       "typeVersion": 2,
       "position": [
         -640,
-        680
+        688
       ],
-      "id": "d37896a7-c1ca-400b-a31d-8ac66621c269",
+      "id": "97537c1c-8eff-4900-9f8e-458f99e17003",
       "name": "JadwalShalatAgent"
     },
     {
       "parameters": {
         "updates": [
           "messages"
-        ]
+        ],
+        "options": {}
       },
       "type": "n8n-nodes-base.whatsAppTrigger",
       "typeVersion": 1,
       "position": [
-        -1320,
-        200
+        -1328,
+        208
       ],
-      "id": "9672e7ce-25b5-4b18-852c-63faa3f2a63c",
+      "id": "ed2948f3-64d4-440a-820e-0894a4797bb9",
       "name": "When Message Received",
       "webhookId": "d4b711f4-b4ea-409c-852c-70d143ba0253",
       "credentials": {
         "whatsAppTriggerApi": {
-          "id": "AX5Mr8HymvRddYeV",
-          "name": "WA - IWKZ Demo"
+          "id": "17NbTkKtPeHhuQUi",
+          "name": "WhatsApp - juan@iwkz.de"
         }
       }
     },
@@ -221,10 +204,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1080,
-        20
+        -1088,
+        32
       ],
-      "id": "4f49dfff-1ba8-46c1-84e9-b048fd6f633d",
+      "id": "01fb0da6-db58-428e-8fab-0b942b1c38c5",
       "name": "Edit Fields1"
     },
     {
@@ -256,10 +239,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1080,
-        200
+        -1088,
+        208
       ],
-      "id": "295a5fa4-91f1-493a-83a6-6307ac43aa7d",
+      "id": "da211847-0371-408d-b629-87bb8e17e3b0",
       "name": "Edit Fields2"
     },
     {
@@ -289,10 +272,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -260,
-        100
+        -256,
+        112
       ],
-      "id": "b54bace1-4e45-449d-bd6a-734fb5701bcd",
+      "id": "89f25c86-63be-4da6-b519-eaf2ef58219a",
       "name": "If"
     },
     {
@@ -313,9 +296,9 @@
       "typeVersion": 3.4,
       "position": [
         0,
-        200
+        208
       ],
-      "id": "46b1c0f1-5f43-45e0-8010-2bfcc8a543c9",
+      "id": "b3365f35-fb52-4a89-b8bf-8dc969dcf3d0",
       "name": "Send Response To Chat"
     },
     {
@@ -324,8 +307,7 @@
         "phoneNumberId": "636769649516172",
         "recipientPhoneNumber": "={{ $('Edit Fields').item.json.user_id }}",
         "textBody": "={{ $json.output }}",
-        "additionalFields": {},
-        "requestOptions": {}
+        "additionalFields": {}
       },
       "type": "n8n-nodes-base.whatsApp",
       "typeVersion": 1,
@@ -333,12 +315,13 @@
         0,
         0
       ],
-      "id": "25b72dad-91dc-444b-9b78-9f27fdabada2",
+      "id": "2769c388-9eb9-47f4-961c-94ac2803b235",
       "name": "Send Response To WA",
+      "webhookId": "f50eec49-3146-4ccb-80da-a143c8c63490",
       "credentials": {
         "whatsAppApi": {
-          "id": "EsSQ9c4izDBOaeYF",
-          "name": "WA - IWKZ Bot Prod"
+          "id": "MSWEoSsa0mu3bbxH",
+          "name": "WhatsApp - juan@iwkz.de"
         }
       }
     },
@@ -348,8 +331,9 @@
         "description": "gunakan tool ini jika pengguna ingin membuka atau menutup pintu masjid",
         "workflowId": {
           "__rl": true,
-          "value": "cnhhn9Rs0UmsMZe0",
+          "value": "zEAv0hwBIBtPAkIp",
           "mode": "list",
+          "cachedResultUrl": "/workflow/zEAv0hwBIBtPAkIp",
           "cachedResultName": "NukiPintuMasjidAgent"
         },
         "workflowInputs": {
@@ -364,10 +348,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -300,
-        680
+        -304,
+        688
       ],
-      "id": "171545de-da36-4a9c-aa83-b5a5292457ff",
+      "id": "07e848d6-8997-47e9-b56a-9b08f9b9008c",
       "name": "NukiPintuMasjidAgent"
     },
     {
@@ -376,8 +360,9 @@
         "description": "gunakan tool ini ketika pengguna bertanya seputar iwkz / masjid alfalah, kepengurusan, kegiatan dan ruang lingkup bidang atau divisi dikepengurusan.",
         "workflowId": {
           "__rl": true,
-          "value": "5lq1gt0FZlFXf66B",
+          "value": "d5RVNl0yye2ZDGCq",
           "mode": "list",
+          "cachedResultUrl": "/workflow/d5RVNl0yye2ZDGCq",
           "cachedResultName": "IWKZRAGAgent"
         },
         "workflowInputs": {
@@ -392,10 +377,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -140,
-        680
+        -144,
+        688
       ],
-      "id": "b21f6986-1b93-4f11-bed8-0b47835da132",
+      "id": "af02abc2-6d8a-47ce-b5e3-7dd309b64d74",
       "name": "IWKZRAGAgent"
     },
     {
@@ -404,8 +389,9 @@
         "description": "gunakan tool ini jika pengguna bertanya terkait pemasukan, pengeluaran, laporan keuangan dari IWKZ berdasarkan bulan / tahun atau kombinasi keduanya.",
         "workflowId": {
           "__rl": true,
-          "value": "Q6cGXf5gQGiVy37g",
+          "value": "EUuE5WTJ8Kj9KVGp",
           "mode": "list",
+          "cachedResultUrl": "/workflow/EUuE5WTJ8Kj9KVGp",
           "cachedResultName": "LaporanKeuanganAgent"
         },
         "workflowInputs": {
@@ -420,10 +406,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        20,
-        680
+        32,
+        688
       ],
-      "id": "aee3976b-542a-41f3-aa45-411cfb21ec76",
+      "id": "f565f1b0-0fdf-4bf7-849d-98372eca6737",
       "name": "LaporanKeuanganAgent"
     },
     {
@@ -432,8 +418,9 @@
         "description": "gunakan tool ini jika pengguna ingin mengetahui kegiatan / event dari IWKZ dalam waktu dekat. atau jika pengguna menanyakan informasi dari sebuah kegiatan / event, berdasarkan waktu yang diberikan.",
         "workflowId": {
           "__rl": true,
-          "value": "NcbYgXtNOE2k2biC",
+          "value": "pmcl7auIl2KThFSh",
           "mode": "list",
+          "cachedResultUrl": "/workflow/pmcl7auIl2KThFSh",
           "cachedResultName": "CalendarAgent"
         },
         "workflowInputs": {
@@ -448,11 +435,31 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        180,
-        680
+        192,
+        688
       ],
-      "id": "4b78c7c7-0ed5-4c2f-9ed2-e796feaf7d16",
+      "id": "364a57f6-d5aa-4453-8c5a-ea2d28d7e1d8",
       "name": "CalendarAgent"
+    },
+    {
+      "parameters": {
+        "databaseName": "iwkz",
+        "contextWindowLength": 7
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryMongoDbChat",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        288
+      ],
+      "id": "fa7a6e7e-920d-4cd8-9420-b049b54e8d38",
+      "name": "MongoDB Chat Memory",
+      "credentials": {
+        "mongoDb": {
+          "id": "lwP0ljaTccDiNveO",
+          "name": "MongoDB - info@iwkz.de"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -485,17 +492,6 @@
           {
             "node": "IWKZ AI Agent",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Zep": {
-      "ai_memory": [
-        [
-          {
-            "node": "IWKZ AI Agent",
-            "type": "ai_memory",
             "index": 0
           }
         ]
@@ -628,17 +624,29 @@
           }
         ]
       ]
+    },
+    "MongoDB Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "IWKZ AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "a85cbc70-f8f4-42f3-80d6-dff5e0ec63d4",
+  "versionId": "976736a7-4e38-4136-af39-b05c4be7d98d",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "1EIomXPiPPMxPNtz",
+  "id": "xWl4OeNNi3OQGngF",
   "tags": []
 }

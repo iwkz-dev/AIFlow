@@ -13,15 +13,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -140,
-        160
+        -944,
+        608
       ],
-      "id": "80f47e8c-3191-48c0-ad1d-996bd20e329d",
+      "id": "e540c6c4-1c77-4ac6-b04d-a7d3b44419bd",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -36,10 +36,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        -80
+        -848,
+        368
       ],
-      "id": "9bea4bd0-e791-444f-85d4-28ef6014e60b",
+      "id": "ee1f7c42-fc7a-4935-b020-afb2825f5325",
       "name": "IWKZ Agent",
       "onError": "continueErrorOutput"
     },
@@ -50,10 +50,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -420,
-        -80
+        -1216,
+        368
       ],
-      "id": "c04cf562-a439-4b1c-9034-57dc02d81dbe",
+      "id": "dbe95a74-0387-4a2a-b3f6-cdc3ac7c09cc",
       "name": "Workflow Input Trigger"
     },
     {
@@ -79,14 +79,14 @@
       "type": "n8n-nodes-base.airtableTool",
       "typeVersion": 2.1,
       "position": [
-        180,
-        180
+        -624,
+        624
       ],
-      "id": "ec974e6b-f305-49e8-89c5-8102a99f40f3",
+      "id": "34e86c95-30fd-4d8f-82a4-363201011776",
       "name": "Get Product",
       "credentials": {
         "airtableTokenApi": {
-          "id": "fiN8pcAwFTKvL98a",
+          "id": "Jb1ujve2HobpIdsr",
           "name": "Airtable - juan@iwkz.de"
         }
       }
@@ -108,10 +108,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        320,
-        -180
+        -480,
+        256
       ],
-      "id": "d35586dd-6de7-4006-99fa-d4810a772f94",
+      "id": "c1627f96-c398-4a7d-b823-2ff71e288e3f",
       "name": "Response"
     },
     {
@@ -131,10 +131,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        320,
-        20
+        -480,
+        464
       ],
-      "id": "057d0775-6b9e-436f-bfbc-a01a837985f9",
+      "id": "9453f3ac-eb5a-464c-9d8f-f836c4014cfb",
       "name": "Try Again"
     }
   ],
@@ -200,28 +200,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "8c5a720e-d59d-41ce-a44e-13363dd3e67a",
+  "versionId": "03929d33-6b46-4f91-b8e7-172798b74696",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "RQ1dKtBN3OWUZt9M",
-  "tags": [
-    {
-      "createdAt": "2025-02-25T20:00:35.943Z",
-      "updatedAt": "2025-02-25T20:00:35.943Z",
-      "id": "Wnut2uU8xvcycMLB",
-      "name": "beta"
-    },
-    {
-      "createdAt": "2025-02-25T14:07:25.635Z",
-      "updatedAt": "2025-02-25T14:07:25.635Z",
-      "id": "j5ZDs8JWX2Zi4GG6",
-      "name": "Toko AlFalah"
-    }
-  ]
+  "id": "Qmy82r2BArdNoo3H",
+  "tags": []
 }

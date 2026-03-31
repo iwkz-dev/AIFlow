@@ -8,10 +8,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -820,
-        20
+        -816,
+        32
       ],
-      "id": "9f48be48-eff9-47bc-9937-4d491e8accdb",
+      "id": "2d747d8f-0c5e-4fd0-b4ff-38f0693aa36f",
       "name": "Workflow Input Trigger"
     },
     {
@@ -51,10 +51,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -300,
-        20
+        -304,
+        32
       ],
-      "id": "46443f87-37d4-46d9-a512-d3ca30ca365c",
+      "id": "764966eb-7f54-4f9e-abb7-dfb31b701ed7",
       "name": "If"
     },
     {
@@ -80,10 +80,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        200,
+        208,
         0
       ],
-      "id": "431679ae-0ff5-41fe-82fd-422665d01319",
+      "id": "2738a808-e93d-4036-89d9-870c2979808d",
       "name": "Edit Fields"
     },
     {
@@ -166,14 +166,14 @@
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 2.1,
       "position": [
-        580,
+        592,
         0
       ],
-      "id": "66673c31-b9aa-4541-82cd-9d69e7362e0b",
+      "id": "7f4c9e1f-4854-4b84-8b67-87974e3bce24",
       "name": "Airtable3",
       "credentials": {
         "airtableTokenApi": {
-          "id": "fiN8pcAwFTKvL98a",
+          "id": "Jb1ujve2HobpIdsr",
           "name": "Airtable - juan@iwkz.de"
         }
       }
@@ -188,10 +188,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        380,
+        384,
         0
       ],
-      "id": "256411a5-9f4e-431c-b3e7-29c70576002a",
+      "id": "c8177c8d-a728-46aa-88a3-09d3a9c32c88",
       "name": "Split Out"
     },
     {
@@ -211,10 +211,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        820,
+        832,
         0
       ],
-      "id": "727aadc8-5b7e-46d7-97e6-7f3271c4e700",
+      "id": "46a944b3-0152-4862-9083-be24ff24d915",
       "name": "Edit Fields1",
       "executeOnce": true
     },
@@ -314,12 +314,12 @@
         0,
         0
       ],
-      "id": "3b19b14e-986b-4382-a356-a2a471c0c3db",
+      "id": "f8bc265f-6eb2-4037-a4ab-f60c289c6b14",
       "name": "CustomerOrder1",
       "alwaysOutputData": false,
       "credentials": {
         "airtableTokenApi": {
-          "id": "fiN8pcAwFTKvL98a",
+          "id": "Jb1ujve2HobpIdsr",
           "name": "Airtable - juan@iwkz.de"
         }
       }
@@ -332,9 +332,9 @@
       "typeVersion": 2,
       "position": [
         -560,
-        20
+        32
       ],
-      "id": "8822efb0-8f58-4f8d-9610-75332c51f8c0",
+      "id": "6f7ffe0f-978d-4cae-9948-f4a53cd17f67",
       "name": "Code"
     }
   ],
@@ -426,28 +426,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "7bef2f86-7a40-4c45-b3d6-24689d106cd4",
+  "versionId": "b6f3065f-3648-4bea-81db-4393ab6ecc79",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "3KPqDFcf6d9jKlV4",
-  "tags": [
-    {
-      "createdAt": "2025-02-25T20:00:35.943Z",
-      "updatedAt": "2025-02-25T20:00:35.943Z",
-      "id": "Wnut2uU8xvcycMLB",
-      "name": "beta"
-    },
-    {
-      "createdAt": "2025-02-25T14:07:25.635Z",
-      "updatedAt": "2025-02-25T14:07:25.635Z",
-      "id": "j5ZDs8JWX2Zi4GG6",
-      "name": "Toko AlFalah"
-    }
-  ]
+  "id": "nqgdA8d0Ikdbj3xr",
+  "tags": []
 }

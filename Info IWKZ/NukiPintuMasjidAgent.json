@@ -8,10 +8,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -720,
-        280
+        -416,
+        272
       ],
-      "id": "39332d84-37f6-4f1b-8077-bd8091b89ef9",
+      "id": "0e3dbd97-060a-45f1-9110-0af9e0f85488",
       "name": "Workflow Input Trigger"
     },
     {
@@ -41,10 +41,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -500,
-        280
+        -192,
+        272
       ],
-      "id": "476c8bb5-33a4-4fde-9738-594c839a5661",
+      "id": "076bd8a2-d643-4654-b37b-8aa575ef054a",
       "name": "If"
     },
     {
@@ -69,10 +69,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -220,
-        100
+        96,
+        96
       ],
-      "id": "309aa76f-b2c4-44fb-b3fd-717d968a869d",
+      "id": "0ca441ac-5f0c-4e3e-b8d2-6c225b06ca57",
       "name": "Nuki Unlock",
       "alwaysOutputData": false,
       "onError": "continueErrorOutput"
@@ -99,10 +99,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -220,
-        480
+        96,
+        464
       ],
-      "id": "a80b9c43-4d61-4981-b73b-f3d74f3cf6bf",
+      "id": "eef34d61-b4a4-42b9-acb0-b57daff9fd14",
       "name": "Nuki Lock",
       "alwaysOutputData": false,
       "onError": "continueErrorOutput"
@@ -124,10 +124,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        200
+        304,
+        192
       ],
-      "id": "f695f3fe-46d9-4a5e-9eca-53ea575147e1",
+      "id": "e753e952-19f8-4b5a-8c85-09b1ce732a73",
       "name": "Error"
     },
     {
@@ -147,10 +147,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        0
+        304,
+        -16
       ],
-      "id": "04efac7f-fda0-4a58-9366-6b1806635d5f",
+      "id": "65934773-f2cd-492b-9183-827b818f933d",
       "name": "Success"
     },
     {
@@ -170,10 +170,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        580
+        304,
+        576
       ],
-      "id": "7c048ca2-41ee-4483-b180-c0e11462a83d",
+      "id": "d165607d-cf09-499a-93cd-e831dacccda3",
       "name": "Error1"
     },
     {
@@ -193,10 +193,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        400
+        304,
+        384
       ],
-      "id": "dddaa33b-97c8-437e-a3b0-89fe7795557c",
+      "id": "cccc3c9d-7062-4252-adc0-2d81284c6d0d",
       "name": "Success1"
     }
   ],
@@ -276,14 +276,15 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "85cb8345-b398-4815-978f-55189c3ad0ce",
+  "versionId": "2c285d8e-c813-499e-b01e-8d30411d3c5e",
   "meta": {
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "cnhhn9Rs0UmsMZe0",
+  "id": "zEAv0hwBIBtPAkIp",
   "tags": []
 }

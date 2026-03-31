@@ -6,10 +6,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -1800,
-        180
+        -1808,
+        192
       ],
-      "id": "bf42765a-129d-45a1-924c-fa4b72b5a2ca",
+      "id": "a433146a-9a87-4295-ab7b-5155b3e0f528",
       "name": "When clicking ‘Test workflow’",
       "disabled": true
     },
@@ -28,14 +28,14 @@
       "typeVersion": 1,
       "position": [
         -1360,
-        180
+        192
       ],
-      "id": "ce38fd8a-c915-4ac2-9498-460ad87cd6a7",
+      "id": "20715d80-4b97-43a8-a8d8-c189e0ecb6c9",
       "name": "Pinecone Vector Store",
       "credentials": {
         "pineconeApi": {
-          "id": "NNMzswIAKht7etMN",
-          "name": "PineconeApi - juan@iwkz.de"
+          "id": "lEusiXHsYaSSaMwb",
+          "name": "Pinecone - juan@iwkz.de"
         }
       }
     },
@@ -46,15 +46,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -1400,
-        420
+        -1408,
+        432
       ],
-      "id": "2b5bd9dc-d58f-4542-b6cf-523ef84ec629",
+      "id": "29a3b5cd-cebb-4335-b9df-25cc7342950e",
       "name": "Embeddings OpenAI",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -67,9 +67,9 @@
       "typeVersion": 1,
       "position": [
         -1200,
-        420
+        432
       ],
-      "id": "592835f9-f137-4f10-9a5e-2be69b016a0f",
+      "id": "b7b70274-5d61-47da-9610-360917a1b19d",
       "name": "Default Data Loader"
     },
     {
@@ -81,10 +81,10 @@
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        -1180,
-        620
+        -1184,
+        624
       ],
-      "id": "ae61b04b-a71b-40dd-94a2-578acdc6e748",
+      "id": "d6be539b-72af-4d90-aa82-d5d32ed44a22",
       "name": "Recursive Character Text Splitter"
     },
     {
@@ -102,15 +102,15 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        -1580,
-        180
+        -1584,
+        192
       ],
-      "id": "5eece7cb-dd91-4847-90fc-14d097b2de33",
+      "id": "bebabe9b-ad47-4aac-931b-fb170fff5146",
       "name": "Get RAG Feeder",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "EgwlQ8plLHmHDVk4",
-          "name": "GDrive - info@iwkz.de"
+          "id": "s6dn5IvIFciIwwMd",
+          "name": "Google Drive - info@iwkz.de"
         }
       }
     },
@@ -122,11 +122,11 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1880,
-        60
+        -1888,
+        64
       ],
       "typeVersion": 1,
-      "id": "a4123d3f-93ef-472a-8c30-a26c9feba609",
+      "id": "f70f31a5-a096-4754-b255-ebcc105c1072",
       "name": "Sticky Note"
     },
     {
@@ -138,10 +138,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -360,
-        100
+        -368,
+        112
       ],
-      "id": "a487006d-9363-4401-9966-d7299438fe9d",
+      "id": "a7d16285-8e10-439e-b200-51083cb3fffa",
       "name": "RAG Agent",
       "onError": "continueErrorOutput"
     },
@@ -158,15 +158,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -420,
+        -416,
         320
       ],
-      "id": "ec27a9d4-cf56-406a-9db4-5b2e807faaa6",
+      "id": "b60ab9eb-52d7-4d9b-821b-aef7449ca007",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -179,10 +179,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1,
       "position": [
-        -140,
+        -144,
         400
       ],
-      "id": "dc0b1172-df3d-4e53-b649-4cccf84f8e0d",
+      "id": "93b23875-748a-46c3-983a-96a5e835373b",
       "name": "Answer questions with a vector store"
     },
     {
@@ -197,15 +197,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        40,
-        540
+        48,
+        544
       ],
-      "id": "de2995b2-142b-4cd3-9bc9-9efda9988765",
+      "id": "1c36f375-f2c8-4168-9571-e613aaf4f70c",
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -222,15 +222,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
       "typeVersion": 1,
       "position": [
-        -280,
-        580
+        -288,
+        592
       ],
-      "id": "4b1f12f1-675e-445b-b31d-55274b348c8d",
+      "id": "e6898ec2-21d1-4da4-a719-2936270cb9bd",
       "name": "Pinecone Vector Store1",
       "credentials": {
         "pineconeApi": {
-          "id": "NNMzswIAKht7etMN",
-          "name": "PineconeApi - juan@iwkz.de"
+          "id": "lEusiXHsYaSSaMwb",
+          "name": "Pinecone - juan@iwkz.de"
         }
       }
     },
@@ -241,15 +241,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -260,
+        -256,
         800
       ],
-      "id": "13c65bbd-0e7d-4a00-9615-246d202aec47",
+      "id": "1e49e36a-8e4f-44bc-b844-51b810f7b865",
       "name": "Embeddings OpenAI1",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -273,7 +273,7 @@
         0,
         0
       ],
-      "id": "08603270-2884-4791-97ac-f3036dda380c",
+      "id": "2023e405-0143-4343-879a-b60a4401dd0a",
       "name": "Response"
     },
     {
@@ -294,9 +294,9 @@
       "typeVersion": 3.4,
       "position": [
         0,
-        200
+        208
       ],
-      "id": "5a027d57-fbf5-4d89-936c-c8043408d830",
+      "id": "034038c7-eb28-4b0a-85a7-64fe172a4040",
       "name": "Try Again"
     },
     {
@@ -306,14 +306,22 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -600,
-        100
+        -608,
+        112
       ],
-      "id": "eaa39ce0-2a04-4e09-9567-95bdfad3f58c",
+      "id": "46c1544d-6d93-469b-a613-61186db1984a",
       "name": "Workflow Input Trigger"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "Alamat lengkap IWKZ"
+        }
+      }
+    ]
+  },
   "connections": {
     "When clicking ‘Test workflow’": {
       "main": [
@@ -455,15 +463,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "5d69d09b-9521-46d5-b99b-a88b61bcee4a",
+  "versionId": "d1958416-b53a-45b8-b805-2833845168f0",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "5lq1gt0FZlFXf66B",
+  "id": "d5RVNl0yye2ZDGCq",
   "tags": []
 }

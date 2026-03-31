@@ -9,10 +9,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2540,
-        -60
+        0,
+        0
       ],
-      "id": "4a454b92-c517-4f9b-9bfe-7118490d370e",
+      "id": "2f56338b-8bbe-4337-91ec-5c1d2bd2738d",
       "name": "Split Out1"
     },
     {
@@ -23,33 +23,33 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2540,
-        140
+        0,
+        208
       ],
-      "id": "f4071859-1560-49a0-b515-efc7a766a7cc",
+      "id": "80565e60-28c3-482c-a907-c0a2d319123a",
       "name": "Split Out2"
     },
     {
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "create",
-        "workspaceId": "=poizjycbvlf9p9e",
-        "projectId": "=poizjycbvlf9p9e",
-        "table": "mqyb7ojfqiqk6e0",
+        "workspaceId": "=pmzollswqeknxyf",
+        "projectId": "=pmzollswqeknxyf",
+        "table": "medpa4zue3t51t1",
         "dataToSend": "autoMapInputData"
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2760,
-        -60
+        224,
+        0
       ],
-      "id": "8b3ecacf-1424-4765-b911-87e4542541e4",
+      "id": "efc04b77-5be2-4b23-b57a-afea41d55e5f",
       "name": "Pembukuan Operasional",
       "credentials": {
         "nocoDbApiToken": {
-          "id": "fxzAD4prGK1RT9xl",
-          "name": "Data IWKZ"
+          "id": "xI1J8IO5R6yvsJGQ",
+          "name": "data.iwkz.de"
         }
       }
     },
@@ -57,23 +57,23 @@
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "create",
-        "workspaceId": "=poizjycbvlf9p9e",
-        "projectId": "=poizjycbvlf9p9e",
-        "table": "mn0cps9yo2pxgia",
+        "workspaceId": "=pmzollswqeknxyf",
+        "projectId": "=pmzollswqeknxyf",
+        "table": "mifdc1p5uukas3f",
         "dataToSend": "autoMapInputData"
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2760,
-        140
+        224,
+        208
       ],
-      "id": "4d55e227-a5d0-45c4-958e-027ad2ff26fa",
+      "id": "76320828-96fb-4cb8-90aa-a733b0151ace",
       "name": "Pembukuan PRS",
       "credentials": {
         "nocoDbApiToken": {
-          "id": "fxzAD4prGK1RT9xl",
-          "name": "Data IWKZ"
+          "id": "xI1J8IO5R6yvsJGQ",
+          "name": "data.iwkz.de"
         }
       }
     },
@@ -90,15 +90,15 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        2880,
-        340
+        352,
+        400
       ],
-      "id": "09ff38c3-5570-4e96-a378-d7f27922c62d",
+      "id": "9c7bb5d6-49d8-4d2a-9ffe-f4f41adaddb7",
       "name": "Remove File",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "EgwlQ8plLHmHDVk4",
-          "name": "GDrive - info@iwkz.de"
+          "id": "s6dn5IvIFciIwwMd",
+          "name": "Google Drive - info@iwkz.de"
         }
       }
     },
@@ -137,10 +137,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1600,
-        240
+        -944,
+        304
       ],
-      "id": "65fa1e5c-c8d9-4a23-a2fc-31b5467e24c6",
+      "id": "41d8e139-8143-451c-9747-0855eaad7e60",
       "name": "Cleanup Result"
     },
     {
@@ -152,10 +152,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -160,
-        240
+        -2704,
+        304
       ],
-      "id": "8c086128-6e6b-43f4-bb44-c80b8166bbd1",
+      "id": "33dc97aa-d3f4-40f8-bfc2-815032c6ce41",
       "name": "Webhook File Upload",
       "webhookId": "f92fa88a-4e4e-4956-a728-5456b172f4b5"
     },
@@ -175,15 +175,15 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        1380,
-        240
+        -1168,
+        304
       ],
-      "id": "1e07194a-685a-4613-b016-82fba9fd3f59",
+      "id": "7648d0cd-da62-4673-b752-169efb665c7f",
       "name": "Create GSheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "mEZ9Y5iltEpAe8XO",
-          "name": "Pembukuan - info@iwkz.de"
+          "id": "A8PwCavbJ1C4Xh1l",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -213,15 +213,15 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        2540,
-        340
+        0,
+        400
       ],
-      "id": "7cdff4f0-ebf8-406e-af46-da75ddfdd744",
+      "id": "b8a58cd9-ffaa-4892-ae36-b7e52f2681a5",
       "name": "Record To GSheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "mEZ9Y5iltEpAe8XO",
-          "name": "Pembukuan - info@iwkz.de"
+          "id": "A8PwCavbJ1C4Xh1l",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -251,15 +251,15 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        2700,
-        340
+        160,
+        400
       ],
-      "id": "676b52d7-b370-4715-921d-183094b36609",
+      "id": "cf8a4969-8d66-425d-b7fa-02d4f8e5ae2e",
       "name": "Move Results",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "EgwlQ8plLHmHDVk4",
-          "name": "GDrive - info@iwkz.de"
+          "id": "s6dn5IvIFciIwwMd",
+          "name": "Google Drive - info@iwkz.de"
         }
       }
     },
@@ -286,10 +286,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        80,
-        240
+        -2464,
+        304
       ],
-      "id": "63dad735-ab23-4a94-9930-ea60c4fa237f",
+      "id": "fdfbe233-05ea-4d91-885a-20da9567a99f",
       "name": "Map File Id & Type"
     },
     {
@@ -347,10 +347,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        2240,
-        40
+        -304,
+        112
       ],
-      "id": "2d5752ee-4e0b-4f2c-99f0-f9f6f85d51c0",
+      "id": "0e4a8b60-338a-4600-836c-7162cff98636",
       "name": "Switch Based on Type"
     },
     {
@@ -361,10 +361,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2240,
-        340
+        -304,
+        400
       ],
-      "id": "c0554a7f-ad8e-490f-96cc-75f3cb01b3c9",
+      "id": "95c1ca43-2a99-4608-b1fe-97e46251679f",
       "name": "Split Out"
     },
     {
@@ -375,10 +375,10 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        540,
-        240
+        -2000,
+        304
       ],
-      "id": "61b577bd-7362-4341-9eb4-3e64fdadd97e",
+      "id": "08c0e235-0dcd-4966-9082-9307916573b8",
       "name": "Extract from File"
     },
     {
@@ -393,10 +393,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        780,
-        240
+        -1760,
+        304
       ],
-      "id": "9135bc66-aece-44bb-88a7-7f5169b2c7eb",
+      "id": "e16c02b5-f11b-444d-aa12-b2fca37ac854",
       "name": "AI Agent"
     },
     {
@@ -412,15 +412,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        740,
-        460
+        -1808,
+        528
       ],
-      "id": "06baf440-d3bd-48ae-aa97-22419220f114",
+      "id": "a2719505-43b9-445c-8d6e-264306066664",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -431,10 +431,10 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        1080,
-        440
+        -1568,
+        544
       ],
-      "id": "bea40621-6f46-41d6-92ee-760bcf1b1b58",
+      "id": "c3b876ea-d619-428e-8eea-03928fb68dd1",
       "name": "Structured Output Parser"
     },
     {
@@ -458,10 +458,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1160,
-        240
+        -1376,
+        304
       ],
-      "id": "9dbd1747-6824-49b7-ab1a-12da8df9744d",
+      "id": "0aacb7d0-a6d5-4ca8-ab59-bace16c53e08",
       "name": "API IWKZ - Financereport"
     },
     {
@@ -505,35 +505,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2240,
-        600
+        -304,
+        672
       ],
-      "id": "75319e7b-f739-4144-8cca-44c2ad3b5e06",
+      "id": "d9361c63-cef4-4cb0-a987-71190a7df4e4",
       "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "authentication": "nocoDbApiToken",
-        "operation": "create",
-        "workspaceId": "=poizjycbvlf9p9e",
-        "projectId": "=poizjycbvlf9p9e",
-        "table": "mtpg8v40mwjz55e",
-        "dataToSend": "autoMapInputData"
-      },
-      "type": "n8n-nodes-base.nocoDb",
-      "typeVersion": 3,
-      "position": [
-        2520,
-        600
-      ],
-      "id": "54fdf764-8662-45ab-8240-7ec4288a5710",
-      "name": "NocoDB",
-      "credentials": {
-        "nocoDbApiToken": {
-          "id": "fxzAD4prGK1RT9xl",
-          "name": "Data IWKZ"
-        }
-      }
     },
     {
       "parameters": {
@@ -548,15 +524,39 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        320,
-        240
+        -2224,
+        304
       ],
-      "id": "5b47501e-ca47-429e-9a96-ce1a45ffed97",
+      "id": "6df85f37-16f2-45a7-9d3b-7d0e228b66eb",
       "name": "Google Drive",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "EgwlQ8plLHmHDVk4",
-          "name": "GDrive - info@iwkz.de"
+          "id": "s6dn5IvIFciIwwMd",
+          "name": "Google Drive - info@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "workspaceId": "=pmzollswqeknxyf",
+        "projectId": "=pmzollswqeknxyf",
+        "table": "mzuyrfv5xytl0am",
+        "dataToSend": "autoMapInputData"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -16,
+        672
+      ],
+      "id": "3d250168-1ac3-40a0-b5fc-b2506cdf2dd2",
+      "name": "Cashflow",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "xI1J8IO5R6yvsJGQ",
+          "name": "data.iwkz.de"
         }
       }
     }
@@ -597,11 +597,6 @@
         ]
       ]
     },
-    "Pembukuan Operasional": {
-      "main": [
-        []
-      ]
-    },
     "Split Out2": {
       "main": [
         [
@@ -611,11 +606,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Pembukuan PRS": {
-      "main": [
-        []
       ]
     },
     "Cleanup Result": {
@@ -648,11 +638,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Remove File": {
-      "main": [
-        []
       ]
     },
     "Create GSheets": {
@@ -787,7 +772,7 @@
       "main": [
         [
           {
-            "node": "NocoDB",
+            "node": "Cashflow",
             "type": "main",
             "index": 0
           }
@@ -808,20 +793,14 @@
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "a1ae5f48-8137-41e1-93c1-38de6babff40",
+  "versionId": "ffa3a5ef-2424-40c0-8236-f07dce8ec72e",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "KCyiUU0UIaBnfwGq",
-  "tags": [
-    {
-      "createdAt": "2025-02-25T15:52:06.226Z",
-      "updatedAt": "2025-02-25T15:52:06.226Z",
-      "id": "vFuizoPxkCrlNkhY",
-      "name": "Pembukuan"
-    }
-  ]
+  "id": "PrBoPaSiAZboWFE0",
+  "tags": []
 }

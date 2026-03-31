@@ -13,10 +13,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -460,
-        100
+        -464,
+        112
       ],
-      "id": "a69611bf-cb0a-49a9-88eb-e754e51fe6bd",
+      "id": "8ca4e41f-eb5e-446e-a2f0-b6d085482fe6",
       "name": "AI Agent",
       "onError": "continueErrorOutput"
     },
@@ -34,36 +34,14 @@
       "typeVersion": 1.2,
       "position": [
         -480,
-        360
+        368
       ],
-      "id": "1e1d4337-31b9-497d-9d82-92de6e6551fe",
+      "id": "e26d3b1b-db14-4b76-9190-e979864480f1",
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "tableId": "pembukuan_public",
-        "returnAll": true,
-        "filterType": "string"
-      },
-      "type": "n8n-nodes-base.supabaseTool",
-      "typeVersion": 1,
-      "position": [
-        -100,
-        460
-      ],
-      "id": "e5199805-d453-44c4-bef1-c40a220d759d",
-      "name": "Supabase",
-      "credentials": {
-        "supabaseApi": {
-          "id": "4BUSzjSNQN4JBjBQ",
-          "name": "Supabase - juan@iwkz.de"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -87,7 +65,7 @@
         0,
         0
       ],
-      "id": "8682d24a-fd59-454f-b20e-9db43df12683",
+      "id": "d37b4e15-78c9-4258-9e74-fde45e392b61",
       "name": "Edit Fields"
     },
     {
@@ -108,9 +86,9 @@
       "typeVersion": 3.4,
       "position": [
         0,
-        220
+        224
       ],
-      "id": "7ee32417-3f6b-404b-a5e1-64ec5a73ae33",
+      "id": "b264ac1a-6bd2-4a09-a556-f33b48175765",
       "name": "Try Again"
     },
     {
@@ -120,43 +98,34 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -700,
-        100
+        -704,
+        112
       ],
-      "id": "a0f62ef0-b07b-4351-b662-0e07d054ddb4",
+      "id": "e26ebcbc-da68-4f0e-8195-98eca8dcc591",
       "name": "Workflow Input Trigger"
     },
     {
       "parameters": {
-        "operation": "search",
-        "base": {
-          "__rl": true,
-          "value": "appfQuwiifBi6oFP6",
-          "mode": "list",
-          "cachedResultName": "pembukuan_public",
-          "cachedResultUrl": "https://airtable.com/appfQuwiifBi6oFP6"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tblc7c5xJqR3SlSgf",
-          "mode": "list",
-          "cachedResultName": "Imported table",
-          "cachedResultUrl": "https://airtable.com/appfQuwiifBi6oFP6/tblc7c5xJqR3SlSgf"
-        },
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "wdtovbfv",
+        "projectId": "pmzollswqeknxyf",
+        "table": "mzuyrfv5xytl0am",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
         "options": {}
       },
-      "type": "n8n-nodes-base.airtableTool",
-      "typeVersion": 2.1,
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
       "position": [
-        -260,
-        360
+        -256,
+        368
       ],
-      "id": "58f644bc-e1cd-40de-b382-4c4a815726ed",
-      "name": "Airtable",
+      "id": "c0853025-0936-44ad-be66-5da6a8084299",
+      "name": "Cashflow",
       "credentials": {
-        "airtableTokenApi": {
-          "id": "fiN8pcAwFTKvL98a",
-          "name": "Airtable - juan@iwkz.de"
+        "nocoDbApiToken": {
+          "id": "xI1J8IO5R6yvsJGQ",
+          "name": "data.iwkz.de"
         }
       }
     }
@@ -165,7 +134,7 @@
     "Workflow Input Trigger": [
       {
         "json": {
-          "query": "pendapatan IWKZ Q2 2024"
+          "query": "pendapatan IWKZ Q2 2025"
         }
       }
     ]
@@ -200,11 +169,6 @@
         ]
       ]
     },
-    "Supabase": {
-      "ai_tool": [
-        []
-      ]
-    },
     "Workflow Input Trigger": {
       "main": [
         [
@@ -216,7 +180,7 @@
         ]
       ]
     },
-    "Airtable": {
+    "Cashflow": {
       "ai_tool": [
         [
           {
@@ -228,15 +192,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "15da63e7-aa02-4ca7-8267-637f660cc7cf",
+  "versionId": "f5cdc910-484a-4541-b0c4-fcb7ece451a7",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "Q6cGXf5gQGiVy37g",
+  "id": "EUuE5WTJ8Kj9KVGp",
   "tags": []
 }

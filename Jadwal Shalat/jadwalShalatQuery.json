@@ -8,10 +8,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -740,
-        80
+        -1360,
+        160
       ],
-      "id": "7cb99534-f431-4766-9063-e15a43e3ff7f",
+      "id": "28a919a0-1536-462a-bf60-4d629f2ea545",
       "name": "Workflow Input Trigger"
     },
     {
@@ -67,10 +67,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        280,
-        80
+        -352,
+        160
       ],
-      "id": "fafd6811-1940-4490-b483-649edda99e1a",
+      "id": "97a6ec02-5720-4c16-ab5d-44add6de62ff",
       "name": "Edit Fields"
     },
     {
@@ -80,10 +80,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -520,
-        80
+        -1152,
+        160
       ],
-      "id": "671ef99a-4bf4-449c-9b14-71a5a3d3eecb",
+      "id": "d724e37a-c770-423f-85b8-29a7e89be988",
       "name": "Code"
     },
     {
@@ -114,35 +114,33 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -300,
-        80
+        -928,
+        160
       ],
-      "id": "8d843dbf-dca1-4508-b4e0-51e8687748fc",
+      "id": "76e5ad20-0850-4364-8215-50b4a724db47",
       "name": "If"
     },
     {
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "getAll",
-        "workspaceId": "wk0vywhh",
-        "projectId": "posqwk1jaj2937v",
-        "table": "mr6z2mr9zd4rp4y",
-        "options": {
-          "where": "=(date,eq,{{ $json.dayMonth }})"
-        }
+        "workspaceId": "=pmzollswqeknxyf",
+        "projectId": "=pmzollswqeknxyf",
+        "table": "mnaoz7squ852v42",
+        "options": {}
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        0,
-        0
+        -624,
+        80
       ],
-      "id": "9ef6aeff-4b40-4804-9c58-4f448cfeb98b",
+      "id": "8db43249-86e7-4a49-b62a-7c42719211b4",
       "name": "JadwalShalat",
       "credentials": {
         "nocoDbApiToken": {
-          "id": "fxzAD4prGK1RT9xl",
-          "name": "NocoDB - juan@iwkz.de"
+          "id": "xI1J8IO5R6yvsJGQ",
+          "name": "data.iwkz.de"
         }
       }
     },
@@ -150,25 +148,24 @@
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "getAll",
-        "workspaceId": "wk0vywhh",
-        "projectId": "posqwk1jaj2937v",
-        "table": "m1k1tlwmoow9pe5",
-        "options": {
-          "where": "=(date,eq,{{ $json.dayMonth }})"
-        }
+        "workspaceId": "=pmzollswqeknxyf",
+        "projectId": "=pmzollswqeknxyf",
+        "table": "mfq3w4b85t38vu1",
+        "returnAll": true,
+        "options": {}
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        0,
-        180
+        -624,
+        272
       ],
-      "id": "58f2dccd-e427-472c-95e5-dfc9d87aea62",
+      "id": "7a9ad09b-525f-46d9-b216-b0fc5f071497",
       "name": "JadwalShalatLeapYear",
       "credentials": {
         "nocoDbApiToken": {
-          "id": "fxzAD4prGK1RT9xl",
-          "name": "NocoDB - juan@iwkz.de"
+          "id": "xI1J8IO5R6yvsJGQ",
+          "name": "data.iwkz.de"
         }
       }
     }
@@ -177,7 +174,7 @@
     "Workflow Input Trigger": [
       {
         "json": {
-          "query": "12.02.2024"
+          "query": "12.02.2026"
         }
       }
     ]
@@ -246,15 +243,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "bb499551-eccb-41d2-b159-33308d4fe27e",
+  "versionId": "a34298c8-0909-4fd7-bb7e-f7bbdab66901",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "bJ2z9Rx7WQ5eENCZ",
+  "id": "nqiOC7BNjFsbHP24",
   "tags": []
 }

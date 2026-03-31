@@ -8,10 +8,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -580,
-        100
+        -576,
+        112
       ],
-      "id": "7b35be97-52e5-43a6-82b3-621e3e95cb18",
+      "id": "72901767-6f58-4ede-aa11-2ab156a2cd67",
       "name": "Workflow Input Trigger"
     },
     {
@@ -25,10 +25,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -360,
-        100
+        -368,
+        112
       ],
-      "id": "139cdbf2-4df0-4165-9687-fb4db130b429",
+      "id": "166e2e78-f6e0-48a8-b225-be13ce65a48d",
       "name": "AI Agent",
       "onError": "continueErrorOutput"
     },
@@ -45,14 +45,14 @@
       "typeVersion": 1.2,
       "position": [
         -480,
-        300
+        304
       ],
-      "id": "6f17f70f-dc82-416e-8c62-d5687cab5508",
+      "id": "0f3a1e49-c5ef-4153-9674-4977e0ce076d",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -76,7 +76,7 @@
         0,
         0
       ],
-      "id": "c331339c-964d-445c-b4c2-40a28232cbec",
+      "id": "3e45e888-5107-4894-8070-fd9121087f1c",
       "name": "Response"
     },
     {
@@ -97,9 +97,9 @@
       "typeVersion": 3.4,
       "position": [
         0,
-        200
+        208
       ],
-      "id": "77c1f61e-b0d4-45a3-b256-8a38bb13538e",
+      "id": "0e2ed9e7-5e8c-4a05-8cfd-aa0967e0bce8",
       "name": "Edit Fields"
     },
     {
@@ -124,14 +124,14 @@
       "type": "n8n-nodes-base.airtableTool",
       "typeVersion": 2.1,
       "position": [
-        -200,
+        -208,
         320
       ],
-      "id": "b35f51f7-9958-4da7-b4c2-3499139ec09f",
+      "id": "2a0fbf87-ccce-42f3-9f70-9d383b50b6f8",
       "name": "Get Product",
       "credentials": {
         "airtableTokenApi": {
-          "id": "fiN8pcAwFTKvL98a",
+          "id": "Jb1ujve2HobpIdsr",
           "name": "Airtable - juan@iwkz.de"
         }
       }
@@ -191,22 +191,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "7c321119-7c89-4c4a-8291-866854fc2182",
+  "versionId": "07d2b297-5aae-4ad2-8ae5-5f45ed1e0532",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "Guf3GTw3WcJBF4X7",
-  "tags": [
-    {
-      "createdAt": "2025-02-25T14:07:25.635Z",
-      "updatedAt": "2025-02-25T14:07:25.635Z",
-      "id": "j5ZDs8JWX2Zi4GG6",
-      "name": "Toko AlFalah"
-    }
-  ]
+  "id": "UtMZPeugLYyRGRMc",
+  "tags": []
 }

@@ -12,10 +12,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -380,
+        -960,
         80
       ],
-      "id": "37472059-3386-4b49-a4d5-a86060d9365c",
+      "id": "b708cef1-afb3-4f1b-8a94-85355fa19a1d",
       "name": "AI Agent",
       "onError": "continueErrorOutput"
     },
@@ -31,15 +31,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -360,
-        300
+        -944,
+        304
       ],
-      "id": "6f343d3d-7ed5-49d6-b394-05fdf9232db7",
+      "id": "f241cba2-87b1-4134-b8e1-798a3c9d9556",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -58,15 +58,15 @@
       "type": "n8n-nodes-base.googleCalendarTool",
       "typeVersion": 1.3,
       "position": [
-        -220,
-        300
+        -800,
+        304
       ],
-      "id": "e85a34e8-daaa-4fab-bb69-4caed6bb49fc",
+      "id": "2c9f26de-4d8f-412e-bb25-293fb4ecc2b8",
       "name": "Google Calendar",
       "credentials": {
         "googleCalendarOAuth2Api": {
-          "id": "PcENJOEEFC5sUpD1",
-          "name": "Google Calendar - info@iwkz.de"
+          "id": "8Tw0FN6h7MTTmG97",
+          "name": "Google Calendar account"
         }
       }
     },
@@ -87,10 +87,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
+        -576,
         0
       ],
-      "id": "c038071f-e182-4650-85d0-89f579a36798",
+      "id": "2cb632a2-cbf2-4c83-9b0b-afd932e0b651",
       "name": "Response"
     },
     {
@@ -110,10 +110,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        180
+        -576,
+        192
       ],
-      "id": "25b0fe29-4f1d-4ba8-841a-ec471d7457a6",
+      "id": "02f3065a-b32f-43b8-a7c6-78e5f4985884",
       "name": "Try Again"
     },
     {
@@ -123,10 +123,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -580,
+        -1152,
         80
       ],
-      "id": "a6aebb55-e99c-4f7a-a223-ff5126b5f824",
+      "id": "db2cb3e6-89ab-4200-a28e-d969329855c8",
       "name": "Workflow Input Trigger"
     }
   ],
@@ -184,15 +184,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "27070972-ef62-4648-b9e4-dc2efdcc4d36",
+  "versionId": "ffc424b5-d96d-4fb8-a624-5203b313f846",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "NcbYgXtNOE2k2biC",
+  "id": "pmcl7auIl2KThFSh",
   "tags": []
 }

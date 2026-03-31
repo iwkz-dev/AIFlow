@@ -8,10 +8,10 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -780,
-        100
+        -784,
+        112
       ],
-      "id": "adbaa2d1-9263-4edd-b09f-9288cba2bc05",
+      "id": "a99207da-060c-4613-bb3a-48d14d94dd95",
       "name": "Workflow Input Trigger"
     },
     {
@@ -26,9 +26,9 @@
       "typeVersion": 1.7,
       "position": [
         -480,
-        100
+        112
       ],
-      "id": "6829e953-e195-4d8f-bb6b-1f8f3e4b4bcf",
+      "id": "490e13a5-a112-41fb-99ba-157b6e919b6c",
       "name": "AI Agent",
       "onError": "continueErrorOutput"
     },
@@ -44,15 +44,15 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -740,
-        360
+        -736,
+        368
       ],
-      "id": "8a962563-9859-4537-b9b9-40dda732eb0a",
+      "id": "0c177e95-1f5e-43fa-8f95-0a1bf3d031f8",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
         }
       }
     },
@@ -76,7 +76,7 @@
         0,
         0
       ],
-      "id": "e29751f2-d68f-4916-b5ac-a1ea194166ca",
+      "id": "324e0ff6-6055-431e-a455-7322d7abe7e9",
       "name": "Response"
     },
     {
@@ -97,9 +97,9 @@
       "typeVersion": 3.4,
       "position": [
         0,
-        220
+        224
       ],
-      "id": "8ab3daea-1764-40b6-a2c4-4367a3ded16e",
+      "id": "8da965aa-a394-4160-b9c1-c98b5d347193",
       "name": "Edit Fields"
     },
     {
@@ -124,10 +124,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -300,
-        340
+        -304,
+        352
       ],
-      "id": "a02d99c2-51f9-46ac-90f0-c5a09ffeea9f",
+      "id": "e0c18cd1-a807-4e8d-9ed0-442e8d691fcd",
       "name": "orderConfirmationAgent"
     },
     {
@@ -153,9 +153,9 @@
       "typeVersion": 2,
       "position": [
         -480,
-        340
+        352
       ],
-      "id": "4e75c3c0-b655-4dcf-bde3-652b571a440f",
+      "id": "f09e9695-f227-42dc-83eb-2e2b07fe4955",
       "name": "productAgent"
     },
     {
@@ -180,10 +180,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -120,
-        340
+        -128,
+        352
       ],
-      "id": "0b71e516-d743-4b4c-bff2-9406b2fd3803",
+      "id": "776ce4f2-9e4c-40f0-a045-ded82f8c3961",
       "name": "paymentConfirmationAgent"
     }
   ],
@@ -271,22 +271,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "fc216e9c-1591-4856-a20f-86dc51ce2bb4",
+  "versionId": "b7781893-5be2-4c30-9679-3b4f57ade490",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "ZpFgaUY0BBgT8IyP",
-  "tags": [
-    {
-      "createdAt": "2025-02-25T14:07:25.635Z",
-      "updatedAt": "2025-02-25T14:07:25.635Z",
-      "id": "j5ZDs8JWX2Zi4GG6",
-      "name": "Toko AlFalah"
-    }
-  ]
+  "id": "mYFvl69PBKzuuacP",
+  "tags": []
 }

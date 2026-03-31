@@ -12,37 +12,12 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -360,
-        100
+        -320,
+        32
       ],
-      "id": "ef666979-092c-4b10-b7e3-f094b068f8d9",
+      "id": "ec6a0c9c-04de-4e90-a9c1-7a0b17a2ce49",
       "name": "AI Agent",
       "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "gpt-4o-mini",
-          "mode": "list",
-          "cachedResultName": "gpt-4o-mini"
-        },
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        -420,
-        320
-      ],
-      "id": "3dc237de-7640-45a7-aa24-5d032b32d610",
-      "name": "QWEN Model",
-      "credentials": {
-        "openAiApi": {
-          "id": "Y3n6nu5fhNxMWX91",
-          "name": "OpenAI"
-        }
-      }
     },
     {
       "parameters": {
@@ -50,8 +25,9 @@
         "description": "use this tool to get data based on selected date. make sure the given date format like this dd.mm.yyyy",
         "workflowId": {
           "__rl": true,
-          "value": "bJ2z9Rx7WQ5eENCZ",
+          "value": "nqiOC7BNjFsbHP24",
           "mode": "list",
+          "cachedResultUrl": "/workflow/nqiOC7BNjFsbHP24",
           "cachedResultName": "jadwalShalatQuery"
         },
         "workflowInputs": {
@@ -66,10 +42,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -200,
-        320
+        -160,
+        240
       ],
-      "id": "66fc0799-9d61-4c13-80ea-68c3a47d1618",
+      "id": "3be18c4e-a739-42e8-b436-adf5d77d8fcb",
       "name": "jadwalShalatQuery",
       "notesInFlow": false,
       "notes": "replace Tool key with Data"
@@ -91,10 +67,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        0
+        48,
+        -80
       ],
-      "id": "daff6e54-0f81-4368-8ad1-e156862c3a7c",
+      "id": "10c71645-f2c5-4adf-aa9f-db5fd9bf7173",
       "name": "Edit Fields"
     },
     {
@@ -114,10 +90,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        200
+        48,
+        128
       ],
-      "id": "823111a3-858c-48a4-9f83-511e9d8c6585",
+      "id": "25f106bb-4a96-4f5e-afef-d12e74984474",
       "name": "Try Again"
     },
     {
@@ -127,34 +103,48 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -620,
-        100
+        -576,
+        32
       ],
-      "id": "0291b7cc-39b3-4cd4-89ef-e3b75f1799b1",
+      "id": "1e8958bb-279d-49d8-8446-01515c9fe996",
       "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -368,
+        240
+      ],
+      "id": "4fda8880-110a-4f5f-ab10-a463b8a6257b",
+      "name": "OpenAI Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
+        }
+      }
     }
   ],
   "pinData": {
     "Workflow Input Trigger": [
       {
         "json": {
-          "query": "Jadwal sholat maghrib hari ini?"
+          "query": "Jadwal sholat hari ini?"
         }
       }
     ]
   },
   "connections": {
-    "QWEN Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "jadwalShalatQuery": {
       "ai_tool": [
         [
@@ -194,17 +184,29 @@
           }
         ]
       ]
+    },
+    "OpenAI Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate"
   },
-  "versionId": "ce1c2166-5aa3-48dd-9f22-6ea4fb702149",
+  "versionId": "9c1ce6f5-5c1b-4a37-a338-86141551450c",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ee0dccd299bde7075e34c05c2ea755c535d8116ab50f4e240081c45c3dc39b39"
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
   },
-  "id": "U0e2Mngc0QG85N7z",
+  "id": "6dS6Jt4isyRkn5iZ",
   "tags": []
 }
