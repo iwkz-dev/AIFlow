@@ -10,7 +10,7 @@
       "typeVersion": 1,
       "position": [
         0,
-        0
+        -64
       ],
       "id": "2f56338b-8bbe-4337-91ec-5c1d2bd2738d",
       "name": "Split Out1"
@@ -24,7 +24,7 @@
       "typeVersion": 1,
       "position": [
         0,
-        208
+        144
       ],
       "id": "80565e60-28c3-482c-a907-c0a2d319123a",
       "name": "Split Out2"
@@ -41,8 +41,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        224,
-        0
+        576,
+        -48
       ],
       "id": "efc04b77-5be2-4b23-b57a-afea41d55e5f",
       "name": "Pembukuan Operasional",
@@ -65,8 +65,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        224,
-        208
+        576,
+        160
       ],
       "id": "76320828-96fb-4cb8-90aa-a733b0151ace",
       "name": "Pembukuan PRS",
@@ -90,8 +90,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        352,
-        400
+        304,
+        416
       ],
       "id": "9c7bb5d6-49d8-4d2a-9ffe-f4f41adaddb7",
       "name": "Remove File",
@@ -213,8 +213,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        0,
-        400
+        -48,
+        416
       ],
       "id": "b8a58cd9-ffaa-4892-ae36-b7e52f2681a5",
       "name": "Record To GSheets",
@@ -251,8 +251,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        160,
-        400
+        112,
+        416
       ],
       "id": "cf8a4969-8d66-425d-b7fa-02d4f8e5ae2e",
       "name": "Move Results",
@@ -347,8 +347,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -304,
-        112
+        -352,
+        32
       ],
       "id": "0e4a8b60-338a-4600-836c-7162cff98636",
       "name": "Switch Based on Type"
@@ -361,8 +361,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -304,
-        400
+        -352,
+        416
       ],
       "id": "95c1ca43-2a99-4608-b1fe-97e46251679f",
       "name": "Split Out"
@@ -505,7 +505,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -304,
+        -352,
         672
       ],
       "id": "d9361c63-cef4-4cb0-a987-71190a7df4e4",
@@ -548,7 +548,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -16,
+        -64,
         672
       ],
       "id": "3d250168-1ac3-40a0-b5fc-b2506cdf2dd2",
@@ -559,6 +559,34 @@
           "name": "data.iwkz.de"
         }
       }
+    },
+    {
+      "parameters": {
+        "batchSize": 95,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        336,
+        -64
+      ],
+      "id": "e3ef6ee6-c129-4e90-a11b-f8a5d39736dd",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "batchSize": 95,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        336,
+        144
+      ],
+      "id": "47b81b6e-0156-4aac-8a52-4f1b6694fe46",
+      "name": "Loop Over Items1"
     }
   ],
   "pinData": {
@@ -590,7 +618,7 @@
       "main": [
         [
           {
-            "node": "Pembukuan Operasional",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
@@ -601,7 +629,7 @@
       "main": [
         [
           {
-            "node": "Pembukuan PRS",
+            "node": "Loop Over Items1",
             "type": "main",
             "index": 0
           }
@@ -789,6 +817,52 @@
           }
         ]
       ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Pembukuan Operasional",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pembukuan Operasional": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Pembukuan PRS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pembukuan PRS": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -796,7 +870,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "ffa3a5ef-2424-40c0-8236-f07dce8ec72e",
+  "versionId": "f9052286-341c-47c0-869b-346986646137",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
