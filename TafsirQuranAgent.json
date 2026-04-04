@@ -1,0 +1,170 @@
+{
+  "name": "TafsirQuranAgent",
+  "nodes": [
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "=## Instruksi Khusus TafsirQuranAgent (SANGAT KETAT):\nSaat memberikan respons tafsir, kamu WAJIB mengikuti urutan berikut tanpa menambahkan opini pribadi:\n\n1. **Judul:** Tuliskan *NAMA SURAH DAN NOMOR AYAT*.\n2. **Potongan Ayat:** Tampilkan teks asli Arab dari ayat tersebut.\n3. **Terjemahan:** Tuliskan terjemahan resmi bahasa Indonesia di bawah teks Arab.\n4. **Tafsir Ibnu Katsir:** Tuliskan isi Tafsir Ibnu Katsir yang asli. Jangan mengubah atau menambah kata-kata di dalamnya untuk menjaga keaslian.\n5. **Rangkuman:** Berikan seksi *POIN PENTING TAFSIR* dalam bentuk list poin yang disarikan HANYA dari isi Tafsir Ibnu Katsir tersebut.\n\n## Contoh Format Respons Tafsir:\nHalo *user_name*, berikut adalah penjelasan untuk QS. Al-Ikhlas ayat 1:\n\n📖 *SURAH AL-IKHLAS AYAT 1*\nقُلْ هُوَ اللَّهُ أَحَدٌ\n\"Artinya: Katakanlah (Muhammad), Dialah Allah, Yang Maha Esa.\"\n\n📜 *TAFSIR IBNU KATSIR*\n(Isi tafsir Ibnu Katsir di sini...)\n\n💡 *POIN PENTING TAFSIR*\n- Allah adalah Esa, tidak ada sekutu bagi-Nya.\n- Nama Al-Ahad hanya milik Allah Swt.\n\n---\n\n## Response Strategy:\n- Fokus pada topik IWKZ/Al-Quran/PRS.\n- Gunakan bahasa santai tapi sopan.\n- HANYA gunakan SATU tool per respons."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -464,
+        112
+      ],
+      "id": "1d82ab72-233b-46c0-9a52-b65ee196eb3e",
+      "name": "AI Agent",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -480,
+        368
+      ],
+      "id": "6beabe97-2ba5-4b63-88e7-ee6895e94050",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "XMCVh3PkMalsb8X3",
+          "name": "OpenAI - juan@iwkz.de"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2c3d0149-4ad2-4bd9-b0a9-e163b6c4a5d0",
+              "name": "response",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7e2e57c5-640d-4ee2-ab79-7f63f7aaf8c8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7fed337a-3e1a-427e-8e4a-9e15398f52f6",
+              "name": "response",
+              "value": "sepertinya ada kesalahan nih, silakan coba lagi nanti..",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        224
+      ],
+      "id": "5a91f846-bada-4389-af23-08625848fc54",
+      "name": "Try Again"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -704,
+        112
+      ],
+      "id": "e7cc81bb-9746-4528-b8a9-cd9abffb1a75",
+      "name": "Workflow Input Trigger"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "tafsir Quran surat AlFatihah"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Try Again",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "dd460d43-33ba-4eec-90a0-5e3d3c9bea4e",
+  "meta": {
+    "instanceId": "f8affbff09a4eaa4a024d99fac7ff81160809f1d8e138894eb1d4f37122c0b28"
+  },
+  "id": "AqwQtmhrdGvej6EW",
+  "tags": []
+}
